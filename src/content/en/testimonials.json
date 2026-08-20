@@ -1,0 +1,40 @@
+{
+  "badgeText": "4.9/5 Rated · 431+ Installations",
+  "heading": "What Our",
+  "headingHighlight": "Clients Say",
+  "subheading": "Feedback themes from verified customer reviews across Aligarh and the surrounding district.",
+  "items": [
+    {
+      "name": "Residential Customer",
+      "location": "Aligarh, UP",
+      "system": "Rooftop On-Grid | Residential",
+      "rating": 5,
+      "text": "The team was experienced and polite throughout — from the site survey to final commissioning. Installation was completed on the timeline they promised, with quality hardware and no shortcuts.",
+      "savings": "Verified Customer"
+    },
+    {
+      "name": "Commercial Client",
+      "location": "Aligarh, UP",
+      "system": "Rooftop Solar | Commercial",
+      "rating": 5,
+      "text": "We compared several local vendors and Greentech was the most transparent about pricing — clear discounting, no hidden charges, and a system sized exactly to our load rather than oversold.",
+      "savings": "Verified Customer"
+    },
+    {
+      "name": "Farm Owner",
+      "location": "Aligarh District, UP",
+      "system": "Agricultural Solar Pump",
+      "rating": 5,
+      "text": "Switching to a solar submersible pump ended our dependence on diesel and unreliable rural grid power. The VFD system tracks sunlight through the day exactly as explained.",
+      "savings": "Verified Customer"
+    },
+    {
+      "name": "Group Housing Society",
+      "location": "Aligarh, UP",
+      "system": "Group Housing Rooftop",
+      "rating": 5,
+      "text": "Highly customizable system for our society's shared load, and the subsidy paperwork was handled end-to-end without a single rejection from the portal.",
+      "savings": "Verified Customer"
+    }
+  ]
+}

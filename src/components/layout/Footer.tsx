@@ -1,29 +1,45 @@
-import { Sun, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import companyEn from '../../content/en/company.json';
+import companyHi from '../../content/hi/company.json';
+import footerEn from '../../content/en/footer.json';
+import footerHi from '../../content/hi/footer.json';
+import uiEn from '../../content/en/ui.json';
+import uiHi from '../../content/hi/ui.json';
+import { useContent } from '../../i18n/LanguageContext';
 
 export default function Footer() {
+  const company = useContent(companyEn, companyHi);
+  const footer = useContent(footerEn, footerHi);
+  const ui = useContent(uiEn, uiHi);
   return (
-    <footer className="bg-[#040c18] border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-canvas-alt border-t border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-xl flex items-center justify-center">
-                <Sun size={20} className="text-white" />
+          <div className="sm:col-span-2 lg:col-span-1">
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-9 h-9 bg-gradient-to-br from-solar-500 to-solar-600 rounded-xl flex items-center justify-center shrink-0">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                </svg>
               </div>
               <div>
-                <span className="text-white font-bold text-lg leading-none">SolarCraft</span>
-                <span className="block text-orange-400 text-xs font-medium">India</span>
+                <span className="text-foreground font-bold text-lg leading-none">{company.name.toUpperCase()}</span>
+                <span className="block text-accent text-[10px] font-medium leading-none mt-0.5 tracking-wider">{company.tagline.toUpperCase()}</span>
               </div>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              India's leading self-design solar setup platform. Custom solar solutions for every Indian home.
+            <p className="text-foreground-muted text-sm leading-relaxed mb-3">
+              {company.footerDescription}
+            </p>
+            <p className="text-foreground-subtle text-xs italic mb-5">
+              "{company.philosophyQuote}"
             </p>
             <div className="flex gap-3">
-              {['Twitter', 'LinkedIn', 'YouTube'].map((s) => (
-                <div key={s} className="w-8 h-8 bg-white/5 hover:bg-white/10 rounded-lg flex items-center justify-center cursor-pointer transition-colors">
-                  <span className="text-gray-400 text-xs">{s[0]}</span>
+              {company.socials.map((s) => (
+                <div key={s} className="w-8 h-8 bg-surface hover:bg-surface-alt border border-border rounded-lg flex items-center justify-center cursor-pointer transition-colors">
+                  <span className="text-foreground-muted text-xs">{s[0]}</span>
                 </div>
               ))}
             </div>
@@ -31,17 +47,11 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-foreground font-semibold mb-4">{ui.quickLinks}</h4>
             <ul className="space-y-2">
-              {[
-                { label: 'Design Solar Setup', path: '/configurator' },
-                { label: 'Solar Products', path: '/products' },
-                { label: 'State Subsidies', path: '/subsidies' },
-                { label: 'About Us', path: '/about' },
-                { label: 'Blog', path: '/blog' },
-              ].map((l) => (
+              {footer.quickLinks.map((l) => (
                 <li key={l.path}>
-                  <Link to={l.path} className="text-gray-400 hover:text-orange-400 text-sm transition-colors flex items-center gap-1 group">
+                  <Link to={l.path} className="text-foreground-muted hover:text-accent text-sm transition-colors flex items-center gap-1 group">
                     <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity -ml-1" />
                     {l.label}
                   </Link>
@@ -50,13 +60,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Products */}
+          {/* Industries Served */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Solar Products</h4>
+            <h4 className="text-foreground font-semibold mb-4">{ui.industriesServed}</h4>
             <ul className="space-y-2">
-              {['Solar Panels', 'Inverters', 'Batteries', 'Mounting Structures', 'Wiring & BOS', 'Charge Controllers'].map((p) => (
+              {footer.industriesServed.map((p) => (
                 <li key={p}>
-                  <span className="text-gray-400 text-sm cursor-pointer hover:text-orange-400 transition-colors">{p}</span>
+                  <span className="text-foreground-muted text-sm cursor-pointer hover:text-accent transition-colors">{p}</span>
                 </li>
               ))}
             </ul>
@@ -64,34 +74,42 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Contact Us</h4>
+            <h4 className="text-foreground font-semibold mb-4">{ui.contactUs}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
-                <MapPin size={15} className="text-orange-400 mt-0.5 shrink-0" />
-                <span className="text-gray-400 text-sm">Solar Tower, Sector 18, Noida, UP 201301</span>
+                <MapPin size={15} className="text-accent mt-0.5 shrink-0" />
+                <span className="text-foreground-muted text-sm">{company.address}</span>
               </li>
               <li className="flex items-center gap-2">
-                <Phone size={15} className="text-orange-400 shrink-0" />
-                <span className="text-gray-400 text-sm">+91 98765 43210</span>
+                <Phone size={15} className="text-accent shrink-0" />
+                <div className="text-foreground-muted text-sm">
+                  {company.phones.map((phone, i) => (
+                    <span key={phone}>
+                      {i > 0 && <span className="text-foreground-subtle mx-1">|</span>}
+                      <a href={`tel:${phone}`} className="hover:text-accent transition-colors">{phone.replace('+91', '+91-')}</a>
+                    </span>
+                  ))}
+                </div>
               </li>
               <li className="flex items-center gap-2">
-                <Mail size={15} className="text-orange-400 shrink-0" />
-                <span className="text-gray-400 text-sm">hello@solarcraft.in</span>
+                <Mail size={15} className="text-accent shrink-0" />
+                <a href={`mailto:${company.email}`} className="text-foreground-muted text-sm hover:text-accent transition-colors">{company.email}</a>
               </li>
             </ul>
-            <div className="mt-5 p-3 bg-orange-500/10 rounded-xl border border-orange-500/20">
-              <p className="text-orange-300 text-xs font-medium">MNRE Empanelled Vendor</p>
-              <p className="text-gray-400 text-xs mt-0.5">Certified under PM Surya Ghar Yojana</p>
+            <div className="mt-5 p-3 bg-accent-2-soft rounded-xl border border-leaf-500/20">
+              <p className="text-accent-2 text-xs font-medium">{company.govtBadge.title}</p>
+              <p className="text-foreground-muted text-xs mt-0.5">{company.govtBadge.subtitle}</p>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-white/5 mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">© 2025 SolarCraft India Pvt. Ltd. All rights reserved.</p>
-          <div className="flex gap-4 text-gray-500 text-xs">
-            <span className="cursor-pointer hover:text-gray-300 transition-colors">Privacy Policy</span>
-            <span className="cursor-pointer hover:text-gray-300 transition-colors">Terms of Service</span>
-            <span className="cursor-pointer hover:text-gray-300 transition-colors">Refund Policy</span>
+        <div className="border-t border-border mt-10 lg:mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-foreground-subtle text-sm">{company.copyrightText}</p>
+          <div className="flex flex-wrap justify-center gap-4 text-foreground-subtle text-xs">
+            {footer.legalLinks.map((label) => (
+              <span key={label} className="cursor-pointer hover:text-foreground-muted transition-colors">{label}</span>
+            ))}
+            <span className="cursor-pointer hover:text-foreground-muted transition-colors">{company.website}</span>
           </div>
         </div>
       </div>

@@ -1,24 +1,133 @@
 @import "tailwindcss";
 
-@theme {
-  --color-solar-50: #fff7ed;
-  --color-solar-100: #ffedd5;
-  --color-solar-200: #fed7aa;
-  --color-solar-300: #fdba74;
-  --color-solar-400: #fb923c;
-  --color-solar-500: #f97316;
-  --color-solar-600: #ea580c;
-  --color-solar-700: #c2410c;
-  --color-solar-800: #9a3412;
-  --color-solar-900: #7c2d12;
+/* Class-driven dark mode (Tailwind v4 CSS-first): toggling `.dark` on <html>
+   flips every `dark:` variant, independent of OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
 
-  --color-navy-50: #f0f4ff;
-  --color-navy-100: #e0e9ff;
-  --color-navy-500: #3b5bdb;
-  --color-navy-700: #1e3a8a;
-  --color-navy-800: #1e2d6b;
-  --color-navy-900: #0f172a;
-  --color-navy-950: #07101f;
+/* ------------------------------------------------------------------------
+   Design tokens
+   Palette logic (60/30/10 distribution, split-accent color theory):
+     - Solar Amber (H≈36°)  — primary, 60%: sun/energy, CTAs, pricing, headlines
+     - Leaf Green  (H≈150°) — secondary, 30%: savings, eco, "recommended", success
+     - Sky Teal    (H≈195°) — tertiary, 10%: trust/tech, info, links, data viz
+   Surfaces are raw custom properties (not @theme inline) so the exact same
+   `bg-canvas` / `text-foreground` utility class resolves differently under
+   `.dark` at runtime — this is what makes a same-color bg/text bug structurally
+   impossible: every component consumes the *semantic* token, never a literal
+   shade, so light and dark always ship as a contrasting pair by construction.
+   ------------------------------------------------------------------------ */
+
+:root {
+  --canvas: #fbfaf7;
+  --canvas-alt: #f3f1ea;
+  --surface: #ffffff;
+  --surface-alt: #f6f4ee;
+  --surface-sunken: #ece8dd;
+  --foreground: #15171b;
+  --foreground-muted: #4b4e58;
+  --foreground-subtle: #6b6e78;
+  --border: rgba(21, 23, 27, 0.08);
+  --border-strong: rgba(21, 23, 27, 0.16);
+
+  --accent: #e2760c;
+  --accent-strong: #bb590c;
+  --accent-soft: #fef1d8;
+  --accent-2: #1a6339;
+  --accent-2-soft: #dcf3e2;
+  --accent-3: #1f7690;
+  --accent-3-soft: #d9f0f5;
+
+  --shadow-bento: 0 1px 2px rgba(21, 23, 27, 0.04), 0 1px 1px rgba(21, 23, 27, 0.03);
+  --shadow-bento-lg: 0 24px 48px -16px rgba(21, 23, 27, 0.14), 0 4px 12px -4px rgba(21, 23, 27, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.6);
+}
+
+.dark {
+  --canvas: #0b0d11;
+  --canvas-alt: #111318;
+  --surface: #15181d;
+  --surface-alt: #1a1d23;
+  --surface-sunken: #090a0c;
+  --foreground: #f5f4ef;
+  --foreground-muted: #b7b9c2;
+  --foreground-subtle: #888c96;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --accent: #f8b13e;
+  --accent-strong: #fbcd76;
+  --accent-soft: rgba(248, 177, 62, 0.14);
+  --accent-2: #55b678;
+  --accent-2-soft: rgba(85, 182, 120, 0.14);
+  --accent-3: #4fb0c9;
+  --accent-3-soft: rgba(79, 176, 201, 0.14);
+
+  --shadow-bento: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-bento-lg: 0 24px 48px -16px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --glass-bg: rgba(21, 24, 29, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+@theme {
+  /* Semantic tokens — theme-adaptive, use these for all structural bg/text/border */
+  --color-canvas: var(--canvas);
+  --color-canvas-alt: var(--canvas-alt);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-soft: var(--accent-2-soft);
+  --color-accent-3: var(--accent-3);
+  --color-accent-3-soft: var(--accent-3-soft);
+
+  /* Fixed palette scales — for gradients, badges, selected-states that need a
+     specific hue at a specific step. Pair with dark: for the right contrast
+     step on dark canvas (light mode reads well ~500-700, dark mode ~300-400). */
+  --color-solar-50: #fffaf0;
+  --color-solar-100: #fef1d8;
+  --color-solar-200: #fde2ae;
+  --color-solar-300: #fbcd76;
+  --color-solar-400: #f8b13e;
+  --color-solar-500: #f59417;
+  --color-solar-600: #e2760c;
+  --color-solar-700: #bb590c;
+  --color-solar-800: #954611;
+  --color-solar-900: #793b11;
+
+  --color-leaf-50: #f1faf3;
+  --color-leaf-100: #dcf3e2;
+  --color-leaf-200: #bbe6c8;
+  --color-leaf-300: #8bd2a3;
+  --color-leaf-400: #55b678;
+  --color-leaf-500: #2f9a58;
+  --color-leaf-600: #1f7c45;
+  --color-leaf-700: #1a6339;
+  --color-leaf-800: #184f30;
+  --color-leaf-900: #14412a;
+
+  --color-sky-50: #f0f9fb;
+  --color-sky-100: #d9f0f5;
+  --color-sky-200: #b0e0ea;
+  --color-sky-300: #7cc9da;
+  --color-sky-400: #4fb0c9;
+  --color-sky-500: #2d93ae;
+  --color-sky-600: #1f7690;
+  --color-sky-700: #1a5e74;
+  --color-sky-800: #184b5c;
+  --color-sky-900: #163e4c;
+
+  --color-ink-950: #0b0c0e;
+  --color-ink-900: #15171b;
+  --color-ink-100: #eeeef1;
 }
 
 @layer base {
@@ -30,36 +139,79 @@
 
   html {
     scroll-behavior: smooth;
+    color-scheme: light;
+    overflow-x: hidden;
+  }
+
+  html.dark {
+    color-scheme: dark;
   }
 
   body {
     margin: 0;
-    background: #07101f;
-    color: white;
+    background: var(--canvas);
+    color: var(--foreground);
     font-family: 'Inter', system-ui, sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   #root {
     width: 100%;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 }
 
 @layer utilities {
   .glass {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
   }
 
-  .glass-dark {
-    background: rgba(0,0,0,0.2);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.1);
+  /* Bento card — the core surface of the design language, theme-adaptive */
+  .bento {
+    background: var(--surface);
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-bento);
+  }
+
+  .bento-hover {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+  }
+
+  .bento-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-bento-lg);
+    border-color: var(--border-strong);
   }
 
   .text-gradient {
-    background: linear-gradient(to right, #fb923c, #fbbf24);
+    background: linear-gradient(to right, #bb590c, #f59417 55%, #f8b13e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dark .text-gradient {
+    background: linear-gradient(to right, #f8b13e, #fbcd76 60%, #fde2ae);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-leaf {
+    background: linear-gradient(to right, #1a6339, #2f9a58 60%, #55b678);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dark .text-gradient-leaf {
+    background: linear-gradient(to right, #55b678, #8bd2a3 60%, #bbe6c8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -71,7 +223,6 @@
 
   .card-hover:hover {
     transform: scale(1.02);
-    box-shadow: 0 20px 60px rgba(249, 115, 22, 0.1);
   }
 
   .scrollbar-hide {
@@ -90,8 +241,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(249, 115, 22, 0.6); }
+  0%, 100% { box-shadow: 0 0 0 rgba(245, 148, 23, 0); }
+  50% { box-shadow: 0 0 24px rgba(245, 148, 23, 0.35); }
 }
 
 .animate-float {

@@ -1,0 +1,11 @@
+{
+  "links": [
+    { "label": "Home", "path": "/" },
+    { "label": "About Us", "path": "/about" },
+    { "label": "Services", "path": "/configurator" },
+    { "label": "Products", "path": "/products" },
+    { "label": "Projects", "path": "/subsidies" },
+    { "label": "Contact Us", "path": "/about" }
+  ],
+  "ctaLabel": "GET A QUOTE"
+}

@@ -1,0 +1,28 @@
+{
+  "heading": "Solar",
+  "headingHighlight": "Products Catalogue",
+  "subheading": "All products sourced from leading Indian manufacturers. BIS certified, MNRE approved.",
+  "tabs": { "panels": "Solar Panels", "inverters": "Inverters", "batteries": "Batteries", "mounting": "Mounting", "bos": "Wiring & BOS" },
+  "tierLabels": { "budget": "Budget", "standard": "Standard", "premium": "Premium" },
+  "price": "Price",
+  "specLabels": {
+    "power": "Power",
+    "efficiency": "Efficiency",
+    "warranty": "Warranty",
+    "weight": "Weight",
+    "capacity": "Capacity",
+    "mppt": "MPPT",
+    "phase": "Phase",
+    "voltage": "Voltage",
+    "dod": "DoD",
+    "cycles": "Cycles"
+  },
+  "mounting": {
+    "material": "Material",
+    "windLoad": "Wind Load",
+    "zincCoating": "Zinc Coating",
+    "warranty": "Warranty",
+    "years": "years",
+    "perKwInstalled": "Per kW installed"
+  }
+}

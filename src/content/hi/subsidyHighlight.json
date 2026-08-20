@@ -1,0 +1,32 @@
+{
+  "badgeText": "PM सूर्य घर योजना 2024",
+  "heading": "पाएं",
+  "headingHighlight": "₹1.4 लाख",
+  "headingSuffix": "तक की सब्सिडी",
+  "description": "PM सूर्य घर मुफ्त बिजली योजना के तहत, घर मालिकों को ₹78,000 तक की केंद्रीय सरकार सब्सिडी के साथ अतिरिक्त राज्य सब्सिडी सीधे उनके बैंक खाते में मिलती है।",
+  "centralTitle": "केंद्रीय सरकार सब्सिडी (सभी राज्य)",
+  "centralTier1Label": "2 kW तक",
+  "centralTier1Value": "₹30,000 / kW",
+  "centralTier1Note": "अधिकतम ₹60,000",
+  "centralTier2Label": "2 kW से 3 kW",
+  "centralTier2Value": "₹18,000 / kW",
+  "centralTier2Note": "अतिरिक्त ₹18,000",
+  "centralFootnote": "3kW+ सिस्टम के लिए अधिकतम केंद्रीय सब्सिडी = ₹78,000",
+  "stateTitle": "राज्य सब्सिडी (राज्य के अनुसार भिन्न)",
+  "stateDescription": "आपके राज्य के आधार पर ₹2,000 – ₹18,000/kW की अतिरिक्त सब्सिडी। हमारे कॉन्फ़िगरेटर में स्वतः गणना की जाती है।",
+  "ctaLabel": "अपने राज्य की सब्सिडी जांचें",
+  "tableTitle": "शीर्ष राज्य — अधिकतम सब्सिडी (3kW सिस्टम)",
+  "tableSubtitle": "केंद्रीय + राज्य संयुक्त सब्सिडी",
+  "centralLabel": "केंद्रीय",
+  "stateLabel": "राज्य",
+  "totalSubsidyLabel": "कुल सब्सिडी",
+  "viewAllLabel": "सभी 28 राज्य देखें",
+  "topStates": [
+    { "state": "हरियाणा", "central": "₹78,000", "stateSub": "₹54,000", "total": "₹1,32,000" },
+    { "state": "दिल्ली", "central": "₹78,000", "stateSub": "₹60,000", "total": "₹1,38,000" },
+    { "state": "आंध्र प्रदेश", "central": "₹78,000", "stateSub": "₹30,000", "total": "₹1,08,000" },
+    { "state": "गुजरात", "central": "₹78,000", "stateSub": "₹30,000", "total": "₹1,08,000" },
+    { "state": "तमिलनाडु", "central": "₹78,000", "stateSub": "₹50,000", "total": "₹1,28,000" },
+    { "state": "तेलंगाना", "central": "₹78,000", "stateSub": "₹30,000", "total": "₹1,08,000" }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "badgeText": "हमें अलग क्या बनाता है",
+  "heading": "अलीगढ़ क्यों चुनता है",
+  "headingHighlight": "ग्रीनटेक को",
+  "subheading": "एक GST-सत्यापित, सरकार-पैनलबद्ध सोलर कॉन्ट्रैक्टर जिसने 431+ प्रोजेक्ट्स में 1,442 kWp से अधिक स्थापित किया है — पारदर्शी मूल्य निर्धारण और इंजीनियरिंग अनुपालन पर बना, सबसे सस्ते कोटेशन की दौड़ पर नहीं।",
+  "differentiators": [
+    {
+      "icon": "BadgeCheck",
+      "title": "सत्यापित और वित्तीय रूप से स्थिर",
+      "desc": "GSTIN-सत्यापित व्यवसाय, 2020 से ₹51 लाख – ₹1 करोड़ के वार्षिक टर्नओवर के साथ परिचालन में। साइन करने से पहले जांचने योग्य ट्रैक रिकॉर्ड, सिर्फ एक सेल्स पिच नहीं।",
+      "color": "from-blue-500 to-cyan-500",
+      "shadow": "shadow-blue-500/20",
+      "borderColor": "border-blue-500/20",
+      "bgColor": "from-blue-500/15 to-cyan-500/5"
+    },
+    {
+      "icon": "ShieldCheck",
+      "title": "MNRE और UPNEDA पैनलबद्ध",
+      "desc": "एक पैनलबद्ध विक्रेता द्वारा पूर्ण किए गए इंस्टॉलेशन — आपके PM सूर्य घर और UPNEDA सब्सिडी आवेदन को अस्वीकृत होने के बजाय स्वीकृत कराने के लिए अनिवार्य आवश्यकता।",
+      "color": "from-green-500 to-emerald-500",
+      "shadow": "shadow-green-500/20",
+      "borderColor": "border-green-500/20",
+      "bgColor": "from-green-500/15 to-emerald-500/5"
+    },
+    {
+      "icon": "Settings2",
+      "title": "इंजीनियरिंग-ग्रेड अनुपालन",
+      "desc": "IS 3043 अर्थिंग, EN 50618 प्रमाणित XLPE केबलिंग, IP68 MC4 कनेक्टर, और CEA (2023) सुरक्षा नियमों का हर इंस्टॉलेशन पर पालन — सिर्फ वही हिस्से नहीं जो आप देख सकते हैं।",
+      "color": "from-purple-500 to-violet-500",
+      "shadow": "shadow-purple-500/20",
+      "borderColor": "border-purple-500/20",
+      "bgColor": "from-purple-500/15 to-violet-500/5"
+    },
+    {
+      "icon": "Activity",
+      "title": "अलीगढ़ की गर्मी के लिए निर्मित",
+      "desc": "बेहतर टेम्परेचर कोएफिशिएंट वाले N-Type TOPCon और बायफेशियल मॉड्यूल विकल्प, जो मानक Mono PERC पैनलों की तुलना में 44°C+ की गर्मी में कम आउटपुट खोने के लिए इंजीनियर्ड हैं।",
+      "color": "from-amber-500 to-orange-500",
+      "shadow": "shadow-amber-500/20",
+      "borderColor": "border-amber-500/20",
+      "bgColor": "from-amber-500/15 to-orange-500/5"
+    },
+    {
+      "icon": "Award",
+      "title": "पारदर्शी, ग्राहक-प्रथम मूल्य निर्धारण",
+      "desc": "स्पष्ट, अग्रिम छूट और EMI विकल्पों के साथ कस्टमाइज़ेबल सिस्टम — जिसमें कोलैटरल-फ्री SBI सूर्य घर लोन भी शामिल है — ताकि आपके अंतिम बिल में कोई आश्चर्य न हो।",
+      "color": "from-rose-500 to-pink-500",
+      "shadow": "shadow-rose-500/20",
+      "borderColor": "border-rose-500/20",
+      "bgColor": "from-rose-500/15 to-pink-500/5"
+    },
+    {
+      "icon": "Factory",
+      "title": "छत से आगे — कृषि सोलर",
+      "desc": "VFD नियंत्रण के साथ SHAKTI सबमर्सिबल सोलर पंप, जो पानी के आउटपुट को वास्तविक समय की धूप से मिलाते हैं — किसानों को डीजल की लागत और अविश्वसनीय ग्रामीण ग्रिड पावर से बचाते हैं।",
+      "color": "from-teal-500 to-cyan-500",
+      "shadow": "shadow-teal-500/20",
+      "borderColor": "border-teal-500/20",
+      "bgColor": "from-teal-500/15 to-cyan-500/5"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "heading": "Frequently Asked",
+  "headingHighlight": "Questions",
+  "subheading": "Everything you need to know about going solar with Greentech in Uttar Pradesh",
+  "items": [
+    {
+      "q": "How much subsidy can I get in Uttar Pradesh?",
+      "a": "UP offers a double-subsidy structure. The central PM Surya Ghar scheme gives ₹30,000/kW for the first 2kW and ₹18,000/kW for the 3rd kW, capped at ₹78,000. UPNEDA adds a state top-up of ₹15,000/kW up to 2kW and a capped ₹30,000 beyond that. Combined, a 3kW–10kW system qualifies for up to ₹1,08,000 in total subsidy, credited directly to your bank account."
+    },
+    {
+      "q": "What makes Greentech different from other local solar dealers?",
+      "a": "Greentech is a GST-verified, MNRE & UPNEDA empanelled EPC contractor operating since 2020, with 1,442 kWp installed across 431+ projects and a 4.9/5 customer rating. Unlike unregistered local electricians, installations by an empanelled vendor are a requirement for your subsidy application to be approved rather than rejected."
+    },
+    {
+      "q": "Why do solar subsidy applications get rejected?",
+      "a": "The most common reasons: installation by a non-empanelled vendor, applying for a capacity that exceeds your sanctioned grid load without prior DISCOM approval, using modules that aren't on the ALMM (Approved List of Models and Manufacturers), and mismatched names across your Aadhaar card, bank account, and UPPCL electricity bill. Greentech handles the paperwork to avoid all of these."
+    },
+    {
+      "q": "What is the difference between On-Grid, Hybrid and Off-Grid?",
+      "a": "On-Grid: connected to the utility grid, exports surplus electricity via net metering, no battery needed — the lowest-cost and maximum-subsidy option. Hybrid: battery plus grid connection, provides backup during outages and can still export surplus. Off-Grid: fully independent of the grid, built for farms and remote areas without reliable UPPCL supply."
+    },
+    {
+      "q": "How does net metering work under UPPCL?",
+      "a": "Net metering is permitted up to your sanctioned grid load, with monthly settlement and a yearly true-up. Applying for solar capacity beyond your sanctioned load without a prior DISCOM load enhancement is the most common cause of automatic portal rejection — Greentech checks this before submitting your application."
+    },
+    {
+      "q": "What is the difference between Pre-GI and Hot-Dip Galvanized (HDG) mounting?",
+      "a": "Pre-Galvanized (Pre-GI) steel is galvanized before fabrication, with a 120–150 g/m² zinc coating — suitable for most locations. Hot-Dip Galvanized (HDG) structures are dipped in molten zinc after fabrication, giving a much thicker 600–700 g/m² coating. Greentech's standard HDG structures use 2mm–2.5mm steel, engineered to withstand wind speeds of 150–180 km/h without buckling or uplift."
+    },
+    {
+      "q": "Can I finance my solar system?",
+      "a": "Yes. The SBI Surya Ghar Loan offers floating interest rates starting near 7.15% p.a. (RLLR-linked), with collateral-free loans up to ₹2 Lakh — enough to cover the post-subsidy cost of most 1kW–3kW residential systems. The EMI on a typical 3kW system is lower than the UPPCL bill it replaces, so the system is cash-flow positive from day one."
+    },
+    {
+      "q": "What is the ROI and payback period for solar in Uttar Pradesh?",
+      "a": "Given UPPCL's telescopic tariff structure and the available central + UPNEDA subsidies, payback for a typical rooftop system in Uttar Pradesh ranges from 2.5 to 4 years. Solar panels are warrantied for 25–30 years, so you get 20+ years of substantially free electricity after payback."
+    }
+  ]
+}

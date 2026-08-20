@@ -1,0 +1,76 @@
+{
+  "badgeText": "Choose Your System Type",
+  "heading": "Which Solar System is",
+  "headingHighlight": "Right for You?",
+  "subheading": "Every property is different. Greentech engineers the system that matches your load profile, grid availability, and budget.",
+  "ctaLabel": "Design This System",
+  "startingFromLabel": "Starting from",
+  "systems": [
+    {
+      "id": "on-grid",
+      "icon": "Globe",
+      "title": "On-Grid Solar",
+      "subtitle": "Grid-Tied System",
+      "badge": "Most Popular",
+      "badgeColor": "bg-blue-500",
+      "gradient": "from-blue-500/20 to-cyan-500/10",
+      "border": "border-blue-500/30",
+      "glow": "shadow-blue-500/20",
+      "iconBg": "from-blue-500 to-cyan-400",
+      "features": [
+        "Export surplus to grid (net metering)",
+        "Maximum PM Surya Ghar subsidy eligible",
+        "No battery needed — lowest cost",
+        "Grid acts as your backup storage",
+        "ROI: 2.5–4 years"
+      ],
+      "suitable": "Best for areas with reliable grid supply. Ideal for most urban homes.",
+      "priceRange": "₹35,000 – ₹1.5L",
+      "path": "/configurator?type=on-grid"
+    },
+    {
+      "id": "hybrid",
+      "icon": "Zap",
+      "title": "Hybrid Solar",
+      "subtitle": "Grid + Battery",
+      "badge": "Recommended",
+      "badgeColor": "bg-orange-500",
+      "gradient": "from-orange-500/20 to-amber-500/10",
+      "border": "border-orange-500/30",
+      "glow": "shadow-orange-500/20",
+      "iconBg": "from-orange-500 to-amber-400",
+      "features": [
+        "Power backup during outages",
+        "Smart battery + grid switching",
+        "Export to grid when battery is full",
+        "Subsidy applicable on solar component",
+        "ROI: 4–6 years"
+      ],
+      "suitable": "Perfect for areas with frequent power cuts. Best of both worlds.",
+      "priceRange": "₹65,000 – ₹3L",
+      "path": "/configurator?type=hybrid"
+    },
+    {
+      "id": "off-grid",
+      "icon": "Battery",
+      "title": "Off-Grid Solar",
+      "subtitle": "Fully Independent",
+      "badge": "Rural & Remote",
+      "badgeColor": "bg-green-500",
+      "gradient": "from-green-500/20 to-emerald-500/10",
+      "border": "border-green-500/30",
+      "glow": "shadow-green-500/20",
+      "iconBg": "from-green-500 to-emerald-400",
+      "features": [
+        "Complete grid independence",
+        "Battery bank stores all energy",
+        "Ideal for no-grid / remote areas",
+        "No electricity bills at all",
+        "ROI: 5–8 years"
+      ],
+      "suitable": "Ideal for farms, villages, remote homes without grid connectivity.",
+      "priceRange": "₹80,000 – ₹4L",
+      "path": "/configurator?type=off-grid"
+    }
+  ]
+}

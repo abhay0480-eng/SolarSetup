@@ -1,32 +1,78 @@
 import { useState } from 'react';
 import { BatteryFull, Check, ChevronDown, ChevronUp, Info, Minus, Plus } from 'lucide-react';
 import { batteries } from '../../data/batteries';
-import type { SystemConfig } from '../../types/solar';
+import type { SystemConfig, Tier } from '../../types/solar';
 import { formatINR, estimateBatteryCount } from '../../utils/priceCalculator';
+import configuratorEn from '../../content/en/configurator.json';
+import configuratorHi from '../../content/hi/configurator.json';
+import { useContent } from '../../i18n/LanguageContext';
+
+const batteryImages = import.meta.glob('../../assets/products/batteries/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' }) as Record<string, string>;
+const batteryImageById: Record<string, string> = {};
+for (const path in batteryImages) {
+  const id = path.split('/').pop()!.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+  batteryImageById[id] = batteryImages[path];
+}
 
 interface Props {
   config: SystemConfig;
   onChange: (updates: Partial<SystemConfig>) => void;
 }
 
+type ChemFilter = 'All' | 'Lithium' | 'Lead-Acid';
+
 export default function Step5Battery({ config, onChange }: Props) {
+  const { step5: t, tierLabels } = useContent(configuratorEn, configuratorHi);
+  const [tierFilter, setTierFilter] = useState<'All' | Tier>('All');
+  const [chemFilter, setChemFilter] = useState<ChemFilter>('All');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  // 60/30/10 tier system: budget=sky (entry), standard=solar (recommended/primary), premium=leaf (top-tier/eco)
+  const TIER_CONFIG: Record<string, { label: string; cls: string; activeCls: string }> = {
+    All: {
+      label: tierLabels.All,
+      cls: 'bg-surface-alt border-border text-foreground-muted hover:text-foreground hover:bg-surface-sunken',
+      activeCls: 'bg-surface-sunken border-border-strong text-foreground',
+    },
+    budget: {
+      label: tierLabels.budget,
+      cls: 'bg-sky-50 dark:bg-sky-500/10 border-sky-200 dark:border-sky-500/25 text-sky-700 dark:text-sky-300 hover:text-foreground',
+      activeCls: 'bg-sky-100 dark:bg-sky-500/25 border-sky-400 dark:border-sky-400/60 text-sky-800 dark:text-sky-200',
+    },
+    standard: {
+      label: tierLabels.standard,
+      cls: 'bg-solar-50 dark:bg-solar-500/10 border-solar-200 dark:border-solar-500/25 text-solar-700 dark:text-solar-300 hover:text-foreground',
+      activeCls: 'bg-solar-100 dark:bg-solar-500/25 border-solar-400 dark:border-solar-400/60 text-solar-800 dark:text-solar-200',
+    },
+    premium: {
+      label: tierLabels.premium,
+      cls: 'bg-leaf-50 dark:bg-leaf-500/10 border-leaf-200 dark:border-leaf-500/25 text-leaf-700 dark:text-leaf-300 hover:text-foreground',
+      activeCls: 'bg-leaf-100 dark:bg-leaf-500/25 border-leaf-400 dark:border-leaf-400/60 text-leaf-800 dark:text-leaf-200',
+    },
+  };
+
+  const TIER_BADGE: Record<Tier, string> = {
+    budget: 'bg-sky-100 dark:bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-500/30',
+    standard: 'bg-solar-100 dark:bg-solar-500/15 text-solar-700 dark:text-solar-300 border-solar-300 dark:border-solar-500/30',
+    premium: 'bg-leaf-100 dark:bg-leaf-500/15 text-leaf-700 dark:text-leaf-300 border-leaf-300 dark:border-leaf-500/30',
+  };
+
+  const chemLabel: Record<ChemFilter, string> = { All: tierLabels.All, Lithium: t.chemLithium, 'Lead-Acid': t.chemLeadAcid };
 
   if (config.systemType === 'on-grid') {
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-white mb-2">Battery Storage</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">{t.onGridHeading}</h2>
         </div>
-        <div className="glass rounded-3xl p-10 text-center">
-          <BatteryFull size={48} className="text-gray-600 mx-auto mb-4" />
-          <h3 className="text-white font-bold text-xl mb-2">No Battery Needed for On-Grid</h3>
-          <p className="text-gray-400 max-w-md mx-auto leading-relaxed">
-            On-grid systems use the utility grid as virtual storage. When your panels generate more than you consume,
-            excess is exported to the grid (net metering). When consumption exceeds generation, you draw from the grid.
+        <div className="bento p-10 text-center">
+          <BatteryFull size={48} className="text-foreground-subtle mx-auto mb-4" />
+          <h3 className="text-foreground font-bold text-xl mb-2">{t.onGridTitle}</h3>
+          <p className="text-foreground-muted max-w-md mx-auto leading-relaxed">
+            {t.onGridDescription}
           </p>
-          <div className="mt-6 bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 inline-block">
-            <p className="text-blue-300 text-sm">Want backup power? Upgrade to <strong>Hybrid System</strong> in Step 2.</p>
+          <div className="mt-6 bg-sky-500/10 border border-sky-500/20 rounded-xl p-4 inline-block">
+            <p className="text-sky-700 dark:text-sky-300 text-sm">{t.onGridUpgradeHint} <strong>{t.onGridUpgradeSystem}</strong> {t.onGridUpgradeSuffix}</p>
           </div>
         </div>
       </div>
@@ -36,6 +82,13 @@ export default function Step5Battery({ config, onChange }: Props) {
   const compatible = batteries.filter(b => b.compatible.includes(config.systemType));
   const selectedBatt = batteries.find(b => b.id === config.batteryId);
 
+  const filtered = compatible.filter(b => {
+    if (tierFilter !== 'All' && b.tier !== tierFilter) return false;
+    if (chemFilter === 'Lithium' && !b.type.includes('Lithium')) return false;
+    if (chemFilter === 'Lead-Acid' && b.type.includes('Lithium')) return false;
+    return true;
+  });
+
   const handleSelect = (battId: string) => {
     const batt = batteries.find(b => b.id === battId);
     const suggestedCount = batt ? estimateBatteryCount(config.capacityKw, batt) : 2;
@@ -43,97 +96,144 @@ export default function Step5Battery({ config, onChange }: Props) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <div>
-        <h2 className="text-2xl font-bold text-white mb-2">Select Battery Storage</h2>
-        <p className="text-gray-400">
-          Choose a battery for your{' '}
-          <span className="text-orange-400 font-medium capitalize">{config.systemType.replace('-', ' ')}</span> system.
-          Recommended backup: 6–10 hours for a typical home.
+        <h2 className="text-2xl font-bold text-foreground mb-2">{t.heading}</h2>
+        <p className="text-foreground-muted">
+          {t.subheadingPrefix}{' '}
+          <span className="text-solar-600 dark:text-solar-400 font-medium capitalize">{config.systemType.replace('-', ' ')}</span> {t.subheadingSuffix}
         </p>
       </div>
 
-      {/* Battery Type Info */}
+      {/* Chemistry Filter */}
+      <div className="space-y-2">
+        <p className="text-foreground-subtle text-xs font-medium uppercase tracking-wide">{t.chemistry}</p>
+        <div className="flex gap-2 flex-wrap">
+          {(['All', 'Lithium', 'Lead-Acid'] as ChemFilter[]).map((c) => (
+            <button
+              key={c}
+              onClick={() => setChemFilter(c)}
+              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
+                chemFilter === c
+                  ? c === 'Lithium'
+                    ? 'bg-leaf-500/30 border-leaf-400/50 text-foreground'
+                    : c === 'Lead-Acid'
+                    ? 'bg-solar-400/30 border-solar-300/50 text-foreground'
+                    : 'bg-surface-sunken border-border-strong text-foreground'
+                  : c === 'Lithium'
+                  ? 'bg-leaf-500/10 border-leaf-500/20 text-leaf-700 dark:text-leaf-300 hover:text-foreground'
+                  : c === 'Lead-Acid'
+                  ? 'bg-solar-400/10 border-solar-400/20 text-solar-700 dark:text-solar-300 hover:text-foreground'
+                  : 'bg-surface-alt border-border text-foreground-muted hover:text-foreground hover:bg-surface-sunken'
+              }`}
+            >
+              {chemLabel[c]}
+              <span className="ml-2 text-xs opacity-60">
+                ({c === 'All'
+                  ? compatible.length
+                  : c === 'Lithium'
+                  ? compatible.filter(b => b.type.includes('Lithium')).length
+                  : compatible.filter(b => !b.type.includes('Lithium')).length})
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Tier Filter */}
+      <div className="space-y-2">
+        <p className="text-foreground-subtle text-xs font-medium uppercase tracking-wide">{t.budgetRange}</p>
+        <div className="flex gap-2 flex-wrap">
+          {(['All', 'budget', 'standard', 'premium'] as const).map((tk) => {
+            const cfg = TIER_CONFIG[tk];
+            const isActive = tierFilter === tk;
+            const count = tk === 'All' ? compatible.length : compatible.filter(b => b.tier === tk).length;
+            return (
+              <button
+                key={tk}
+                onClick={() => setTierFilter(tk)}
+                className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${isActive ? cfg.activeCls : cfg.cls}`}
+              >
+                {cfg.label}
+                <span className="ml-2 text-xs opacity-60">({count})</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Chemistry Info */}
       <div className="grid sm:grid-cols-2 gap-3">
-        <div className="glass rounded-xl p-4">
-          <h4 className="text-white font-semibold text-sm mb-2 flex items-center gap-2">
-            <span className="w-2 h-2 bg-amber-400 rounded-full" />
-            Tubular Lead-Acid
+        <div className="bento p-4">
+          <h4 className="text-foreground font-semibold text-sm mb-2 flex items-center gap-2">
+            <span className="w-2 h-2 bg-solar-300 rounded-full" />
+            {t.tubularTitle}
           </h4>
-          <ul className="text-gray-400 text-xs space-y-1">
-            <li>• Budget friendly (₹12K–18K per battery)</li>
-            <li>• 1,200–1,500 cycles</li>
-            <li>• 60% usable depth of discharge</li>
-            <li>• Wired in series to match inverter voltage</li>
-            <li>• 48V inverter needs 4 × 12V batteries</li>
-            <li>• Requires monthly water top-up</li>
-            <li>• 5-year warranty</li>
+          <ul className="text-foreground-muted text-xs space-y-1">
+            {t.tubularPoints.map((p) => <li key={p}>• {p}</li>)}
           </ul>
         </div>
-        <div className="glass rounded-xl p-4">
-          <h4 className="text-white font-semibold text-sm mb-2 flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-400 rounded-full" />
-            Lithium LFP (Li Iron Phosphate)
+        <div className="bento p-4">
+          <h4 className="text-foreground font-semibold text-sm mb-2 flex items-center gap-2">
+            <span className="w-2 h-2 bg-leaf-500 rounded-full" />
+            {t.lithiumTitle}
           </h4>
-          <ul className="text-gray-400 text-xs space-y-1">
-            <li>• Complete 48V / 51.2V pack — 1 unit = standard</li>
-            <li>• e.g. Deye 5kW inverter + Deye 5kWh = 1 battery</li>
-            <li>• 4,000+ cycles — 10+ year life</li>
-            <li>• 90% usable depth of discharge</li>
-            <li>• Zero maintenance, plug-and-play</li>
-            <li>• 7-year warranty</li>
+          <ul className="text-foreground-muted text-xs space-y-1">
+            {t.lithiumPoints.map((p) => <li key={p}>• {p}</li>)}
           </ul>
         </div>
       </div>
 
       {selectedBatt && (
-        <div className="bg-orange-500/10 border border-orange-500/30 rounded-2xl p-4">
+        <div className="bg-solar-500/10 border border-solar-500/30 rounded-2xl p-4">
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div>
-              <p className="text-orange-300 text-xs font-medium uppercase tracking-wide mb-1">Selected Battery</p>
-              <p className="text-white font-bold">{selectedBatt.brand} — {selectedBatt.model}</p>
-              <p className="text-gray-400 text-sm">{selectedBatt.capacity}Ah / {selectedBatt.voltage}V • {selectedBatt.type}</p>
+              <p className="text-solar-700 dark:text-solar-300 text-xs font-medium uppercase tracking-wide mb-1">{t.selectedBattery}</p>
+              <p className="text-foreground font-bold">{selectedBatt.brand} — {selectedBatt.model}</p>
+              <p className="text-foreground-muted text-sm">{selectedBatt.capacity}Ah / {selectedBatt.voltage}V • {selectedBatt.type}</p>
             </div>
             <div className="flex items-center gap-3">
-              {/* Battery count control */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => onChange({ batteryCount: Math.max(1, config.batteryCount - 1) })}
-                  className="w-8 h-8 bg-white/10 hover:bg-white/15 rounded-lg flex items-center justify-center text-white transition-colors"
+                  className="w-8 h-8 bg-surface-alt hover:bg-surface-sunken rounded-lg flex items-center justify-center text-foreground transition-colors"
                 >
                   <Minus size={14} />
                 </button>
-                <span className="text-white font-bold w-8 text-center">{config.batteryCount}</span>
+                <span className="text-foreground font-bold w-8 text-center">{config.batteryCount}</span>
                 <button
                   onClick={() => onChange({ batteryCount: Math.min(12, config.batteryCount + 1) })}
-                  className="w-8 h-8 bg-white/10 hover:bg-white/15 rounded-lg flex items-center justify-center text-white transition-colors"
+                  className="w-8 h-8 bg-surface-alt hover:bg-surface-sunken rounded-lg flex items-center justify-center text-foreground transition-colors"
                 >
                   <Plus size={14} />
                 </button>
               </div>
               <div className="text-right">
-                <p className="text-white font-bold">{formatINR(selectedBatt.price * config.batteryCount)}</p>
-                <p className="text-gray-400 text-xs">{config.batteryCount} × {formatINR(selectedBatt.price)}</p>
+                <p className="text-foreground font-bold">{formatINR(selectedBatt.price * config.batteryCount)}</p>
+                <p className="text-foreground-muted text-xs">{config.batteryCount} × {formatINR(selectedBatt.price)}</p>
               </div>
             </div>
           </div>
-          {/* Backup estimate */}
           {(() => {
             const usableKwh = (selectedBatt.capacity * selectedBatt.voltage * (selectedBatt.dod / 100) / 1000) * config.batteryCount;
-            const avgLoadKw = 0.5; // typical home backup load ~500W
+            const avgLoadKw = 0.5;
             const backupHrs = Math.round(usableKwh / avgLoadKw);
             return (
-              <div className="flex items-center gap-2 mt-3 text-xs text-green-400 bg-green-500/10 border border-green-500/20 rounded-lg px-3 py-2">
+              <div className="flex items-center gap-2 mt-3 text-xs text-leaf-600 dark:text-leaf-400 bg-leaf-500/10 border border-leaf-500/20 rounded-lg px-3 py-2">
                 <Info size={12} />
-                {(usableKwh).toFixed(1)} kWh usable → ~{backupHrs} hrs backup at 500W avg load
+                {usableKwh.toFixed(1)} {t.backupInfo.replace('{hrs}', String(backupHrs))}
               </div>
             );
           })()}
         </div>
       )}
 
+      {filtered.length === 0 && (
+        <div className="text-center py-8 text-foreground-subtle">{t.noMatch}</div>
+      )}
+
       <div className="space-y-3">
-        {compatible.map((batt) => {
+        {filtered.map((batt) => {
           const isSelected = config.batteryId === batt.id;
           const isExpanded = expandedId === batt.id;
           const isLithium = batt.type.includes('Lithium');
@@ -142,46 +242,55 @@ export default function Step5Battery({ config, onChange }: Props) {
             <div
               key={batt.id}
               className={`rounded-2xl border-2 overflow-hidden transition-all duration-200 ${
-                isSelected ? 'border-orange-500/50 bg-orange-500/5' : 'border-white/10 bg-white/3 hover:border-white/20'
+                isSelected ? 'border-2 border-accent bg-accent-soft ring-2 ring-accent/15' : 'border border-border bg-surface hover:border-border-strong hover:shadow-md'
               }`}
             >
               <div className="p-4">
                 <div className="flex items-start gap-3">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center border shrink-0 ${isLithium ? 'bg-green-500/15 border-green-500/20' : 'bg-amber-500/15 border-amber-500/20'}`}>
-                    <BatteryFull size={18} className={isLithium ? 'text-green-400' : 'text-amber-400'} />
-                  </div>
+                  {batteryImageById[batt.id] ? (
+                    <div className={`w-16 h-16 bg-surface rounded-xl border shrink-0 overflow-hidden p-1 ${isLithium ? 'border-leaf-500/20' : 'border-solar-400/20'}`}>
+                      <img src={batteryImageById[batt.id]} alt={`${batt.brand} ${batt.model}`} className="w-full h-full object-contain" loading="lazy" />
+                    </div>
+                  ) : (
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center border shrink-0 ${isLithium ? 'bg-leaf-500/15 border-leaf-500/20' : 'bg-solar-400/15 border-solar-400/20'}`}>
+                      <BatteryFull size={18} className={isLithium ? 'text-leaf-600 dark:text-leaf-400' : 'text-solar-600 dark:text-solar-400'} />
+                    </div>
+                  )}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2 flex-wrap">
                       <div>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="text-white font-bold">{batt.brand}</h3>
+                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                          <h3 className="text-foreground font-bold">{batt.brand}</h3>
+                          <span className={`text-xs px-2 py-0.5 rounded-full border ${TIER_BADGE[batt.tier]}`}>
+                            {batt.tier.charAt(0).toUpperCase() + batt.tier.slice(1)}
+                          </span>
                           {batt.highlight && (
-                            <span className={`text-xs px-2 py-0.5 rounded-full border ${isLithium ? 'bg-green-500/20 text-green-300 border-green-500/30' : 'bg-amber-500/20 text-amber-300 border-amber-500/30'}`}>
+                            <span className={`text-xs px-2 py-0.5 rounded-full border ${isLithium ? 'bg-leaf-500/20 text-leaf-700 dark:text-leaf-300 border-leaf-500/30' : 'bg-solar-400/20 text-solar-700 dark:text-solar-300 border-solar-400/30'}`}>
                               {batt.highlight}
                             </span>
                           )}
-                          <span className={`text-xs px-2 py-0.5 rounded-full ${isLithium ? 'bg-green-500/10 text-green-400' : 'bg-amber-500/10 text-amber-400'}`}>
-                            {isLithium ? 'Lithium LFP' : 'Lead-Acid'}
+                          <span className={`text-xs px-2 py-0.5 rounded-full ${isLithium ? 'bg-leaf-500/10 text-leaf-600 dark:text-leaf-400' : 'bg-solar-400/10 text-solar-600 dark:text-solar-400'}`}>
+                            {isLithium ? t.lithiumBadge : t.leadAcidBadge}
                           </span>
                         </div>
-                        <p className="text-gray-400 text-sm">{batt.model}</p>
+                        <p className="text-foreground-muted text-sm">{batt.model}</p>
                       </div>
                       <div className="text-right shrink-0">
-                        <p className="text-white font-bold text-lg">{formatINR(batt.price)}</p>
-                        <p className="text-gray-400 text-xs">per unit • {batt.warranty}yr warranty</p>
+                        <p className="text-foreground font-bold text-lg">{formatINR(batt.price)}</p>
+                        <p className="text-foreground-muted text-xs">{t.perUnit} • {batt.warranty}{t.yrWarranty}</p>
                       </div>
                     </div>
 
                     <div className="flex flex-wrap gap-3 mt-3">
                       {[
-                        { label: 'Capacity', value: `${batt.capacity}Ah` },
-                        { label: 'Voltage', value: `${batt.voltage}V` },
-                        { label: 'DoD', value: `${batt.dod}%` },
-                        { label: 'Cycles', value: `${batt.cycleLife.toLocaleString()}` },
+                        { label: t.specLabels.capacity, value: `${batt.capacity}Ah` },
+                        { label: t.specLabels.voltage, value: `${batt.voltage}V` },
+                        { label: t.specLabels.dod, value: `${batt.dod}%` },
+                        { label: t.specLabels.cycles, value: `${batt.cycleLife.toLocaleString()}` },
                       ].map(({ label, value }) => (
-                        <div key={label} className="bg-white/5 rounded-lg px-3 py-1.5 text-center">
-                          <p className="text-gray-400 text-xs">{label}</p>
-                          <p className="text-white text-sm font-semibold">{value}</p>
+                        <div key={label} className="bg-surface-alt rounded-lg px-3 py-1.5 text-center">
+                          <p className="text-foreground-muted text-xs">{label}</p>
+                          <p className="text-foreground text-sm font-semibold">{value}</p>
                         </div>
                       ))}
                     </div>
@@ -193,35 +302,35 @@ export default function Step5Battery({ config, onChange }: Props) {
                     onClick={() => handleSelect(batt.id)}
                     className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold text-sm transition-all ${
                       isSelected
-                        ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/20'
-                        : 'bg-white/10 text-gray-300 hover:bg-white/15 hover:text-white'
+                        ? 'bg-gradient-to-r from-solar-500 to-solar-400 text-white shadow-lg shadow-solar-500/20'
+                        : 'bg-surface-alt text-foreground-muted hover:bg-surface-sunken hover:text-foreground'
                     }`}
                   >
-                    {isSelected ? <><Check size={15} /> Selected</> : 'Select Battery'}
+                    {isSelected ? <><Check size={15} /> {t.selected}</> : t.selectBattery}
                   </button>
                   <button
                     onClick={() => setExpandedId(isExpanded ? null : batt.id)}
-                    className="flex items-center gap-1 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white text-sm transition-all"
+                    className="flex items-center gap-1 px-4 py-2.5 rounded-xl bg-surface-alt hover:bg-surface-alt text-foreground-muted hover:text-foreground text-sm transition-all"
                   >
-                    Full Specs {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                    {t.fullSpecs} {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                   </button>
                 </div>
               </div>
 
               {isExpanded && (
-                <div className="border-t border-white/10 p-4 bg-white/3">
+                <div className="border-t border-border p-4 bg-surface-alt">
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    <SpecRow label="Battery Type" value={batt.type} />
-                    <SpecRow label="Capacity" value={`${batt.capacity} Ah`} />
-                    <SpecRow label="Voltage" value={`${batt.voltage} V`} />
-                    <SpecRow label="Energy" value={`${((batt.capacity * batt.voltage) / 1000).toFixed(1)} kWh`} />
-                    <SpecRow label="Depth of Discharge" value={`${batt.dod}%`} />
-                    <SpecRow label="Usable Energy" value={`${((batt.capacity * batt.voltage * batt.dod) / 100000).toFixed(1)} kWh`} />
-                    <SpecRow label="Cycle Life" value={`${batt.cycleLife.toLocaleString()} cycles`} />
-                    <SpecRow label="Charge Time" value={`~${batt.chargingTime} hrs`} />
-                    <SpecRow label="Warranty" value={`${batt.warranty} years`} />
-                    <SpecRow label="Weight" value={`${batt.weight} kg`} />
-                    <SpecRow label="Dimensions" value={batt.dimensions} />
+                    <SpecRow label={t.specLabels.batteryType} value={batt.type} />
+                    <SpecRow label={t.specLabels.capacity} value={`${batt.capacity} Ah`} />
+                    <SpecRow label={t.specLabels.voltage} value={`${batt.voltage} V`} />
+                    <SpecRow label={t.specLabels.energy} value={`${((batt.capacity * batt.voltage) / 1000).toFixed(1)} kWh`} />
+                    <SpecRow label={t.specLabels.depthOfDischarge} value={`${batt.dod}%`} />
+                    <SpecRow label={t.specLabels.usableEnergy} value={`${((batt.capacity * batt.voltage * batt.dod) / 100000).toFixed(1)} kWh`} />
+                    <SpecRow label={t.specLabels.cycleLife} value={`${batt.cycleLife.toLocaleString()} ${t.specLabels.cyclesSuffix}`} />
+                    <SpecRow label={t.specLabels.chargeTime} value={`~${batt.chargingTime} hrs`} />
+                    <SpecRow label={t.specLabels.warranty} value={`${batt.warranty} ${t.specLabels.years}`} />
+                    <SpecRow label={t.specLabels.weight} value={`${batt.weight} kg`} />
+                    <SpecRow label={t.specLabels.dimensions} value={batt.dimensions} />
                   </div>
                 </div>
               )}
@@ -235,9 +344,9 @@ export default function Step5Battery({ config, onChange }: Props) {
 
 function SpecRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-white/3 rounded-lg p-2.5">
-      <p className="text-gray-500 text-xs mb-0.5">{label}</p>
-      <p className="text-white text-sm font-medium">{value}</p>
+    <div className="bg-surface-alt rounded-lg p-2.5">
+      <p className="text-foreground-subtle text-xs mb-0.5">{label}</p>
+      <p className="text-foreground text-sm font-medium">{value}</p>
     </div>
   );
 }

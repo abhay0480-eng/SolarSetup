@@ -116,10 +116,10 @@ export const stateSubsidies: StateSubsidy[] = [
   {
     state: 'Uttar Pradesh', code: 'UP',
     centralSubsidy: { upTo2kw: 30000, per2to3kw: 18000 },
-    stateSubsidy: { type: 'flat', amount: 15000 },
+    stateSubsidy: { type: 'flat', amount: 30000 },
     discom: 'DVVNL / MVVNL / PuVVNL / PKVVCL / KESCO',
     netMeteringAvailable: true,
-    additionalInfo: 'Flat ₹15,000 state subsidy. Large market with growing installations.',
+    additionalInfo: 'State provides flat ₹30,000 subsidy in addition to PM Surya Ghar (total ₹1,08,000 for 3kW+).',
   },
   {
     state: 'Uttarakhand', code: 'UK',

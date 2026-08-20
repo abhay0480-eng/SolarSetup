@@ -1,0 +1,22 @@
+# Keep folder structure in git, ignore large/private files
+
+# Allow .keep placeholder files
+!.keep
+!**/.keep
+
+# Ignore PDFs, images, and price lists (usually large or confidential)
+*.pdf
+*.PDF
+*.xlsx
+*.xls
+*.csv
+*.jpg
+*.jpeg
+*.png
+*.svg
+*.webp
+*.zip
+*.rar
+
+# If you want to commit a specific file, force-add it:
+# git add -f reference/panels/waaree-datasheet.pdf

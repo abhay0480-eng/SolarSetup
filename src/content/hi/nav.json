@@ -1,0 +1,11 @@
+{
+  "links": [
+    { "label": "होम", "path": "/" },
+    { "label": "हमारे बारे में", "path": "/about" },
+    { "label": "सेवाएं", "path": "/configurator" },
+    { "label": "उत्पाद", "path": "/products" },
+    { "label": "प्रोजेक्ट्स", "path": "/subsidies" },
+    { "label": "संपर्क करें", "path": "/about" }
+  ],
+  "ctaLabel": "कोटेशन प्राप्त करें"
+}

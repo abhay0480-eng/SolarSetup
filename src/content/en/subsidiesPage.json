@@ -1,0 +1,22 @@
+{
+  "badgeText": "Updated 2024-25",
+  "heading": "Solar Subsidies Across",
+  "headingHighlight": "India",
+  "subheading": "Central + State subsidies under PM Surya Ghar Muft Bijli Yojana for residential rooftop solar.",
+  "centralTitle": "PM Surya Ghar — Central Subsidy (All States)",
+  "for1kw": "For 1 kW system",
+  "for2kw": "For 2 kW system",
+  "for3kwPlus": "For 3 kW+ system",
+  "centralSubsidyLabel": "Central subsidy",
+  "maxCentralSubsidyLabel": "Maximum central subsidy",
+  "centralFootnote": "For 2–3kW: additional ₹18,000/kW (for the 3rd kW only). No additional central subsidy beyond 3kW. Subsidy credited directly to bank account via DISCOM after installation.",
+  "calculatorTitle": "Quick Subsidy Calculator",
+  "systemSizeLabel": "System Size:",
+  "searchPlaceholder": "Search state...",
+  "tableStateHeader": "State / UT",
+  "tableCentralHeader": "Central ({kw}kW)",
+  "tableStateSubsidyHeader": "State Subsidy",
+  "tableTotalHeader": "Total",
+  "netMeteringAvailable": "Net metering ✓",
+  "footnote": "* Subsidy amounts are indicative based on published government guidelines. Actual amounts may vary. State subsidies subject to state government notifications and DISCOM policies. Data updated as per PM Surya Ghar Yojana guidelines (2024-25)."
+}

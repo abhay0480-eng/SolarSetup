@@ -11,6 +11,7 @@ export type BosCategory =
   | 'net-meter-kit';
 
 export type BosTier = 'budget' | 'standard' | 'premium';
+export type Tier = 'budget' | 'standard' | 'premium';
 
 export interface BosSpec {
   label: string;
@@ -36,6 +37,7 @@ export interface SolarPanel {
   id: string;
   brand: string;
   model: string;
+  tier: Tier;
   type: 'Mono PERC' | 'Bifacial Mono PERC' | 'Polycrystalline' | 'TOPCon' | 'HJT';
   wattage: number;
   efficiency: number;
@@ -60,6 +62,7 @@ export interface Inverter {
   id: string;
   brand: string;
   model: string;
+  tier: Tier;
   type: 'String' | 'Microinverter' | 'Hybrid' | 'Off-Grid' | 'On-Grid';
   capacity: number;
   phase: '1-Phase' | '3-Phase';
@@ -73,6 +76,7 @@ export interface Inverter {
   price: number;
   compatible: SystemType[];
   certification: string[];
+  image?: string;
   highlight?: string;
 }
 
@@ -80,6 +84,7 @@ export interface Battery {
   id: string;
   brand: string;
   model: string;
+  tier: Tier;
   type: 'Tubular Lead-Acid' | 'AGM VRLA' | 'Lithium LFP' | 'Lithium NMC';
   capacity: number;
   voltage: number;
@@ -91,6 +96,7 @@ export interface Battery {
   weight: number;
   dimensions: string;
   compatible: SystemType[];
+  image?: string;
   highlight?: string;
 }
 

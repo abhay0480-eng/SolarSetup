@@ -7,16 +7,20 @@ import type { BosComponent, SystemConfig, BosCategory } from '../../types/solar'
 import { formatINR, dcCableMetres, AC_CABLE_METRES } from '../../utils/priceCalculator';
 import { calculatePanelCount } from '../../utils/priceCalculator';
 import { solarPanels } from '../../data/panels';
+import configuratorEn from '../../content/en/configurator.json';
+import configuratorHi from '../../content/hi/configurator.json';
+import { useContent } from '../../i18n/LanguageContext';
 
 interface Props {
   config: SystemConfig;
   onChange: (updates: Partial<SystemConfig>) => void;
 }
 
+// 60/30/10 tier system: budget=sky (entry), standard=solar (recommended/primary), premium=leaf (top-tier/eco)
 const TIER_COLORS: Record<string, string> = {
-  budget: 'bg-gray-500/20 text-gray-300 border-gray-500/30',
-  standard: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-  premium: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+  budget: 'bg-sky-100 dark:bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-300 dark:border-sky-500/30',
+  standard: 'bg-solar-100 dark:bg-solar-500/15 text-solar-700 dark:text-solar-300 border-solar-300 dark:border-solar-500/30',
+  premium: 'bg-leaf-100 dark:bg-leaf-500/15 text-leaf-700 dark:text-leaf-300 border-leaf-300 dark:border-leaf-500/30',
 };
 
 const CATEGORY_ORDER: BosCategory[] = [
@@ -63,6 +67,7 @@ function unitLabel(comp: BosComponent, panelCount: number): string {
 }
 
 export default function Step7BOS({ config, onChange }: Props) {
+  const t = useContent(configuratorEn, configuratorHi).step7;
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [openCat, setOpenCat] = useState<BosCategory>('dc-cable');
 
@@ -79,18 +84,17 @@ export default function Step7BOS({ config, onChange }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white mb-2">Wiring & Balance of System (BOS)</h2>
-        <p className="text-gray-400">
-          Select cables, protection boxes, SPDs, earthing and connectors — the components that complete your
-          solar installation. ({selectedCount}/{visibleCategories.length} selected)
+        <h2 className="text-2xl font-bold text-foreground mb-2">{t.heading}</h2>
+        <p className="text-foreground-muted">
+          {t.subheadingPrefix} ({selectedCount}/{visibleCategories.length} {t.selectedOf})
         </p>
       </div>
 
       {/* Info callout */}
-      <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-sm text-blue-300 flex gap-3">
+      <div className="bg-sky-500/10 border border-sky-500/20 rounded-xl p-4 text-sm text-sky-700 dark:text-sky-300 flex gap-3">
         <Info size={16} className="shrink-0 mt-0.5" />
         <div>
-          <strong>Pre-selected</strong> with standard-tier defaults. Upgrade any component to premium brands (Phoenix Contact SPD, Stäubli MC4, chemical earthing) for better protection in coastal or high-lightning areas.
+          <strong>{t.infoCalloutBold}</strong> {t.infoCallout}
         </div>
       </div>
 
@@ -107,22 +111,22 @@ export default function Step7BOS({ config, onChange }: Props) {
             <div
               key={cat}
               className={`rounded-2xl border overflow-hidden transition-all ${
-                isOpen ? 'border-orange-500/30' : selectedComp ? 'border-green-500/20' : 'border-white/10'
+                isOpen ? 'border-solar-500/30' : selectedComp ? 'border-leaf-500/20' : 'border-border'
               }`}
             >
               {/* Accordion header */}
               <button
                 onClick={() => setOpenCat(isOpen ? ('' as BosCategory) : cat)}
-                className="w-full flex items-center gap-4 p-4 text-left bg-white/3 hover:bg-white/5 transition-colors"
+                className="w-full flex items-center gap-4 p-4 text-left bg-surface-alt hover:bg-surface-alt transition-colors"
               >
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-lg shrink-0 ${
-                  selectedComp ? 'bg-green-500/15 border border-green-500/20' : 'bg-white/5 border border-white/10'
+                  selectedComp ? 'bg-leaf-500/15 border border-leaf-500/20' : 'bg-surface-alt border border-border'
                 }`}>
                   {catCfg.icon}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-white font-semibold text-sm">{catCfg.label}</span>
+                    <span className="text-foreground font-semibold text-sm">{catCfg.label}</span>
                     {selectedComp && (
                       <span className={`text-xs px-2 py-0.5 rounded-full border ${TIER_COLORS[selectedComp.tier]}`}>
                         {selectedComp.tier}
@@ -130,28 +134,28 @@ export default function Step7BOS({ config, onChange }: Props) {
                     )}
                   </div>
                   {selectedComp
-                    ? <p className="text-gray-400 text-xs truncate">{selectedComp.brand} — {selectedComp.model}</p>
-                    : <p className="text-gray-500 text-xs">{catCfg.description}</p>
+                    ? <p className="text-foreground-muted text-xs truncate">{selectedComp.brand} — {selectedComp.model}</p>
+                    : <p className="text-foreground-subtle text-xs">{catCfg.description}</p>
                   }
                 </div>
                 <div className="text-right shrink-0 flex items-center gap-3">
                   {selectedComp && (
-                    <p className="text-white font-semibold text-sm">
+                    <p className="text-foreground font-semibold text-sm">
                       {formatINR(unitPrice(selectedComp, panelCount))}
                     </p>
                   )}
                   {selectedComp
-                    ? <Check size={16} className="text-green-400" />
-                    : isOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />
+                    ? <Check size={16} className="text-leaf-600 dark:text-leaf-400" />
+                    : isOpen ? <ChevronUp size={16} className="text-foreground-muted" /> : <ChevronDown size={16} className="text-foreground-muted" />
                   }
-                  {selectedComp && (isOpen ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />)}
+                  {selectedComp && (isOpen ? <ChevronUp size={16} className="text-foreground-muted" /> : <ChevronDown size={16} className="text-foreground-muted" />)}
                 </div>
               </button>
 
               {/* Accordion body */}
               {isOpen && (
-                <div className="border-t border-white/10 p-4 space-y-3">
-                  <p className="text-gray-400 text-xs mb-3">{catCfg.description}</p>
+                <div className="border-t border-border p-4 space-y-3">
+                  <p className="text-foreground-muted text-xs mb-3">{catCfg.description}</p>
 
                   {items.map(comp => {
                     const isSelected = selectedId === comp.id;
@@ -164,8 +168,8 @@ export default function Step7BOS({ config, onChange }: Props) {
                         key={comp.id}
                         className={`rounded-xl border overflow-hidden transition-all ${
                           isSelected
-                            ? 'border-orange-500/40 bg-orange-500/5'
-                            : 'border-white/10 bg-white/3 hover:border-white/20'
+                            ? 'border-2 border-accent bg-accent-soft ring-2 ring-accent/15'
+                            : 'border border-border bg-surface hover:border-border-strong hover:shadow-md'
                         }`}
                       >
                         <div className="p-4">
@@ -174,32 +178,32 @@ export default function Step7BOS({ config, onChange }: Props) {
                               <div className="flex items-start justify-between gap-2 flex-wrap">
                                 <div>
                                   <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                                    <span className="text-white font-semibold text-sm">{comp.brand}</span>
+                                    <span className="text-foreground font-semibold text-sm">{comp.brand}</span>
                                     <span className={`text-xs px-2 py-0.5 rounded-full border ${TIER_COLORS[comp.tier]}`}>
                                       {comp.tier}
                                     </span>
                                     {comp.highlight && (
-                                      <span className="bg-orange-500/20 text-orange-300 text-xs px-2 py-0.5 rounded-full border border-orange-500/30">
+                                      <span className="bg-solar-500/20 text-solar-700 dark:text-solar-300 text-xs px-2 py-0.5 rounded-full border border-solar-500/30">
                                         {comp.highlight}
                                       </span>
                                     )}
                                   </div>
-                                  <p className="text-gray-400 text-xs">{comp.model}</p>
+                                  <p className="text-foreground-muted text-xs">{comp.model}</p>
                                 </div>
                                 <div className="text-right shrink-0">
-                                  <p className="text-white font-bold">{formatINR(cost)}</p>
-                                  <p className="text-gray-500 text-xs">{qty}</p>
+                                  <p className="text-foreground font-bold">{formatINR(cost)}</p>
+                                  <p className="text-foreground-subtle text-xs">{qty}</p>
                                 </div>
                               </div>
 
-                              <p className="text-gray-400 text-xs mt-2 leading-relaxed">{comp.description}</p>
+                              <p className="text-foreground-muted text-xs mt-2 leading-relaxed">{comp.description}</p>
 
                               {/* Quick spec pills */}
                               <div className="flex flex-wrap gap-2 mt-3">
                                 {comp.specs.slice(0, 4).map(s => (
-                                  <div key={s.label} className="bg-white/5 rounded-lg px-2.5 py-1">
-                                    <span className="text-gray-500 text-xs">{s.label}: </span>
-                                    <span className="text-white text-xs font-medium">{s.value}</span>
+                                  <div key={s.label} className="bg-surface-alt rounded-lg px-2.5 py-1">
+                                    <span className="text-foreground-subtle text-xs">{s.label}: </span>
+                                    <span className="text-foreground text-xs font-medium">{s.value}</span>
                                   </div>
                                 ))}
                               </div>
@@ -211,17 +215,17 @@ export default function Step7BOS({ config, onChange }: Props) {
                               onClick={() => onChange(setBosSelection(config, cat, comp.id))}
                               className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-xl font-semibold text-sm transition-all ${
                                 isSelected
-                                  ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/20'
-                                  : 'bg-white/8 text-gray-300 hover:bg-white/12 hover:text-white'
+                                  ? 'bg-gradient-to-r from-solar-500 to-solar-400 text-white shadow-lg shadow-solar-500/20'
+                                  : 'bg-surface-sunken text-foreground-muted hover:bg-surface-alt hover:text-foreground'
                               }`}
                             >
-                              {isSelected ? <><Check size={14} /> Selected</> : 'Select'}
+                              {isSelected ? <><Check size={14} /> {t.selected}</> : t.select}
                             </button>
                             <button
                               onClick={() => setExpandedId(isExpanded ? null : comp.id)}
-                              className="flex items-center gap-1 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white text-xs transition-all"
+                              className="flex items-center gap-1 px-3 py-2 rounded-xl bg-surface-alt hover:bg-surface-alt text-foreground-muted hover:text-foreground text-xs transition-all"
                             >
-                              All Specs
+                              {t.allSpecs}
                               {isExpanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
                             </button>
                           </div>
@@ -229,22 +233,22 @@ export default function Step7BOS({ config, onChange }: Props) {
 
                         {/* Full specs */}
                         {isExpanded && (
-                          <div className="border-t border-white/10 p-4 bg-white/3">
+                          <div className="border-t border-border p-4 bg-surface-alt">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
                               {comp.specs.map(s => (
-                                <div key={s.label} className="bg-white/3 rounded-lg p-2.5">
-                                  <p className="text-gray-500 text-xs mb-0.5">{s.label}</p>
-                                  <p className="text-white text-sm font-medium">{s.value}</p>
+                                <div key={s.label} className="bg-surface-alt rounded-lg p-2.5">
+                                  <p className="text-foreground-subtle text-xs mb-0.5">{s.label}</p>
+                                  <p className="text-foreground text-sm font-medium">{s.value}</p>
                                 </div>
                               ))}
                             </div>
                             <div>
-                              <p className="text-gray-500 text-xs font-medium mb-2 flex items-center gap-1">
-                                <Shield size={11} /> Certifications
+                              <p className="text-foreground-subtle text-xs font-medium mb-2 flex items-center gap-1">
+                                <Shield size={11} /> {t.certifications}
                               </p>
                               <div className="flex flex-wrap gap-2">
                                 {comp.certification.map(c => (
-                                  <span key={c} className="bg-green-500/10 border border-green-500/20 text-green-300 text-xs px-2 py-1 rounded-lg flex items-center gap-1">
+                                  <span key={c} className="bg-leaf-500/10 border border-leaf-500/20 text-leaf-700 dark:text-leaf-300 text-xs px-2 py-1 rounded-lg flex items-center gap-1">
                                     <Zap size={9} />{c}
                                   </span>
                                 ))}
@@ -264,10 +268,10 @@ export default function Step7BOS({ config, onChange }: Props) {
 
       {/* DC cable note */}
       {panel && (
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4 text-xs text-gray-400">
-          <p className="font-medium text-gray-300 mb-1">Cable Length Estimate</p>
-          <p>DC cable: {dcCableMetres(panelCount)}m (based on {panelCount} panels × 4m avg run × 1.25 overhead, both conductors)</p>
-          <p className="mt-0.5">AC cable: {AC_CABLE_METRES}m (fixed estimate — inverter to distribution board)</p>
+        <div className="bg-surface-alt border border-border rounded-xl p-4 text-xs text-foreground-muted">
+          <p className="font-medium text-foreground-muted mb-1">{t.cableEstimateTitle}</p>
+          <p>{t.dcCableText.replace('{m}', String(dcCableMetres(panelCount))).replace('{count}', String(panelCount))}</p>
+          <p className="mt-0.5">{t.acCableText.replace('{m}', String(AC_CABLE_METRES))}</p>
         </div>
       )}
     </div>

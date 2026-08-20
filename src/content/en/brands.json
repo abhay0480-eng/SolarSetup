@@ -1,0 +1,12 @@
+{
+  "heading": "Real Products from",
+  "headingHighlight": "Trusted Manufacturers",
+  "subheading": "Adani & Waaree modules · Livguard & Microtek power backup · ALMM-listed and DCR compliant",
+  "panelsLabel": "Solar Panels",
+  "invertersLabel": "Inverters",
+  "batteriesLabel": "Batteries",
+  "panelBrands": ["Adani Solar", "Waaree Energies"],
+  "inverterBrands": ["Livguard", "Microtek"],
+  "batteryBrands": ["Livguard", "Luminous"],
+  "certifications": ["MNRE & UPNEDA Empanelled", "ALMM Listed", "DCR Compliant", "IS 3043 Earthing Compliant", "CEA 2023 Compliant", "EN 50618 Certified Cabling"]
+}

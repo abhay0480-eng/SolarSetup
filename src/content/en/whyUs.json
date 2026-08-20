@@ -1,0 +1,62 @@
+{
+  "badgeText": "What Sets Us Apart",
+  "heading": "Why Aligarh Chooses",
+  "headingHighlight": "Greentech",
+  "subheading": "A GST-verified, government-empanelled solar contractor with over 1,442 kWp installed across 431+ projects — built on transparent pricing and engineering compliance, not the lowest-quote race.",
+  "differentiators": [
+    {
+      "icon": "BadgeCheck",
+      "title": "Verified & Financially Stable",
+      "desc": "GSTIN-verified business, operating since 2020 with an annual turnover of ₹51 Lakh – ₹1 Crore. A track record you can check before you sign, not just a sales pitch.",
+      "color": "from-blue-500 to-cyan-500",
+      "shadow": "shadow-blue-500/20",
+      "borderColor": "border-blue-500/20",
+      "bgColor": "from-blue-500/15 to-cyan-500/5"
+    },
+    {
+      "icon": "ShieldCheck",
+      "title": "MNRE & UPNEDA Empanelled",
+      "desc": "Installations completed by an empanelled vendor — a mandatory requirement for your PM Surya Ghar and UPNEDA subsidy application to be approved, not rejected.",
+      "color": "from-green-500 to-emerald-500",
+      "shadow": "shadow-green-500/20",
+      "borderColor": "border-green-500/20",
+      "bgColor": "from-green-500/15 to-emerald-500/5"
+    },
+    {
+      "icon": "Settings2",
+      "title": "Engineering-Grade Compliance",
+      "desc": "IS 3043 earthing, EN 50618 certified XLPE cabling, IP68 MC4 connectors, and CEA (2023) safety regulations followed on every installation — not just the parts you can see.",
+      "color": "from-purple-500 to-violet-500",
+      "shadow": "shadow-purple-500/20",
+      "borderColor": "border-purple-500/20",
+      "bgColor": "from-purple-500/15 to-violet-500/5"
+    },
+    {
+      "icon": "Activity",
+      "title": "Built for Aligarh's Heat",
+      "desc": "N-Type TOPCon and bifacial module options with superior temperature coefficients, engineered to lose less output during 44°C+ summer peaks than standard Mono PERC panels.",
+      "color": "from-amber-500 to-orange-500",
+      "shadow": "shadow-amber-500/20",
+      "borderColor": "border-amber-500/20",
+      "bgColor": "from-amber-500/15 to-orange-500/5"
+    },
+    {
+      "icon": "Award",
+      "title": "Transparent, Customer-First Pricing",
+      "desc": "Customisable systems with clear, upfront discounting and EMI options — including collateral-free SBI Surya Ghar loans — so there are no surprises on your final invoice.",
+      "color": "from-rose-500 to-pink-500",
+      "shadow": "shadow-rose-500/20",
+      "borderColor": "border-rose-500/20",
+      "bgColor": "from-rose-500/15 to-pink-500/5"
+    },
+    {
+      "icon": "Factory",
+      "title": "Beyond Rooftop — Agricultural Solar",
+      "desc": "SHAKTI submersible solar pumps with VFD control, matching water output to real-time irradiance — insulating farmers from diesel costs and unreliable rural grid power.",
+      "color": "from-teal-500 to-cyan-500",
+      "shadow": "shadow-teal-500/20",
+      "borderColor": "border-teal-500/20",
+      "bgColor": "from-teal-500/15 to-cyan-500/5"
+    }
+  ]
+}

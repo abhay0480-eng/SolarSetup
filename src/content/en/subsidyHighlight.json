@@ -1,0 +1,32 @@
+{
+  "badgeText": "PM Surya Ghar Yojana 2024",
+  "heading": "Get Up to",
+  "headingHighlight": "₹1.4 Lakh",
+  "headingSuffix": "in Subsidies",
+  "description": "Under PM Surya Ghar Muft Bijli Yojana, homeowners get up to ₹78,000 central government subsidy plus additional state subsidies — directly in your bank account.",
+  "centralTitle": "Central Government Subsidy (All States)",
+  "centralTier1Label": "Up to 2 kW",
+  "centralTier1Value": "₹30,000 / kW",
+  "centralTier1Note": "Max ₹60,000",
+  "centralTier2Label": "2 kW to 3 kW",
+  "centralTier2Value": "₹18,000 / kW",
+  "centralTier2Note": "Additional ₹18,000",
+  "centralFootnote": "Maximum central subsidy = ₹78,000 for 3kW+ system",
+  "stateTitle": "State Subsidies (varies by state)",
+  "stateDescription": "Additional subsidies of ₹2,000 – ₹18,000/kW depending on your state. Auto-calculated in our configurator.",
+  "ctaLabel": "Check Your State Subsidy",
+  "tableTitle": "Top States — Max Subsidy (3kW System)",
+  "tableSubtitle": "Central + State combined subsidy",
+  "centralLabel": "Central",
+  "stateLabel": "State",
+  "totalSubsidyLabel": "total subsidy",
+  "viewAllLabel": "View all 28 states",
+  "topStates": [
+    { "state": "Haryana", "central": "₹78,000", "stateSub": "₹54,000", "total": "₹1,32,000" },
+    { "state": "Delhi", "central": "₹78,000", "stateSub": "₹60,000", "total": "₹1,38,000" },
+    { "state": "Andhra Pradesh", "central": "₹78,000", "stateSub": "₹30,000", "total": "₹1,08,000" },
+    { "state": "Gujarat", "central": "₹78,000", "stateSub": "₹30,000", "total": "₹1,08,000" },
+    { "state": "Tamil Nadu", "central": "₹78,000", "stateSub": "₹50,000", "total": "₹1,28,000" },
+    { "state": "Telangana", "central": "₹78,000", "stateSub": "₹30,000", "total": "₹1,08,000" }
+  ]
+}

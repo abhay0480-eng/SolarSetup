@@ -1,0 +1,28 @@
+{
+  "heading": "सोलर",
+  "headingHighlight": "उत्पाद सूची",
+  "subheading": "सभी उत्पाद अग्रणी भारतीय निर्माताओं से प्राप्त। BIS प्रमाणित, MNRE अनुमोदित।",
+  "tabs": { "panels": "सोलर पैनल", "inverters": "इन्वर्टर", "batteries": "बैटरी", "mounting": "माउंटिंग", "bos": "वायरिंग और BOS" },
+  "tierLabels": { "budget": "बजट", "standard": "स्टैंडर्ड", "premium": "प्रीमियम" },
+  "price": "मूल्य",
+  "specLabels": {
+    "power": "पावर",
+    "efficiency": "दक्षता",
+    "warranty": "वारंटी",
+    "weight": "वज़न",
+    "capacity": "क्षमता",
+    "mppt": "MPPT",
+    "phase": "फेज़",
+    "voltage": "वोल्टेज",
+    "dod": "DoD",
+    "cycles": "साइकिल"
+  },
+  "mounting": {
+    "material": "सामग्री",
+    "windLoad": "पवन भार",
+    "zincCoating": "जिंक कोटिंग",
+    "warranty": "वारंटी",
+    "years": "वर्ष",
+    "perKwInstalled": "प्रति kW इंस्टॉल्ड"
+  }
+}

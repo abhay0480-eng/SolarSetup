@@ -1,0 +1,88 @@
+{
+  "badgeText": "Real Installations · 431+ Projects",
+  "heading": "Projects We've",
+  "headingHighlight": "Engineered & Built",
+  "subheading": "1,442 kWp installed across residential, commercial, and agricultural solar systems in and around Aligarh.",
+  "capacityLabel": "Capacity",
+  "locationLabel": "Location",
+  "projects": [
+    {
+      "name": "ACDB & Electrical Setup",
+      "location": "Aligarh, UP",
+      "capacity": "Residential",
+      "type": "Electrical Work",
+      "description": "Professional ACDB box installation with proper cable routing and safety labelling — ensuring IS-compliant electrical distribution for the solar system.",
+      "imageKey": "acdbInstall"
+    },
+    {
+      "name": "Mounting Structure Assembly",
+      "location": "Aligarh, UP",
+      "capacity": "Residential",
+      "type": "Structure Work",
+      "description": "Precision mounting structure assembly on rooftop — galvanized steel framework engineered for wind-load resistance up to 150 km/h.",
+      "imageKey": "structureAssembly"
+    },
+    {
+      "name": "Solar Panel Placement",
+      "location": "Aligarh, UP",
+      "capacity": "Residential",
+      "type": "Rooftop On-Grid",
+      "description": "Careful panel placement onto rooftop mounting structure with proper tilt angle optimization for maximum solar exposure in Aligarh's latitude.",
+      "imageKey": "panelPlacement"
+    },
+    {
+      "name": "Team Panel Installation",
+      "location": "Aligarh, UP",
+      "capacity": "Residential",
+      "type": "On-Grid Rooftop",
+      "description": "Our expert team carrying and positioning solar panels with care — every module handled with precision to prevent micro-cracks and ensure optimal performance.",
+      "imageKey": "panelCarry"
+    },
+    {
+      "name": "Ground Mount Panel Setup",
+      "location": "Aligarh, UP",
+      "capacity": "Residential",
+      "type": "Ground Mount",
+      "description": "Panel lifting and positioning for ground mount installation near the electrical meter — engineered for easy access and maintenance.",
+      "imageKey": "panelLift"
+    }
+  ],
+  "clients": [
+    "Residential Clients — Aligarh City",
+    "Commercial Clients — Anoopshehar Road",
+    "Agricultural Clients — Aligarh District",
+    "Group Housing Societies — Aligarh",
+    "Residential Clients — Dhorra Mafi",
+    "Commercial Clients — Jamalpur",
+    "Agricultural Clients — Khair, Aligarh",
+    "Residential Clients — Aligarh City",
+    "Commercial Clients — Aligarh Industrial Area",
+    "Agricultural Clients — Iglas, Aligarh District",
+    "Group Housing Societies — Aligarh",
+    "Residential Clients — Anoopshehar Road Vicinity"
+  ],
+  "clientsHeading": "Who We Serve",
+  "clientsSubheading": "431+ installations across residential, commercial, and agricultural segments in Aligarh district",
+  "engineeringDocs": [
+    "3D Rooftop Layout & Shadow Analysis (HelioScope / PVsyst)",
+    "Bankable Energy Generation Simulation",
+    "Single Line Diagram (SLD)",
+    "DCDB & ACDB Schematic Layout",
+    "IS 3043 Earthing & Grounding Layout",
+    "Structural Wind-Load Assessment (150–180 km/h rated)",
+    "Cable Sizing & Voltage-Drop Calculation Sheet",
+    "Equipment Datasheets & Technical BOQ",
+    "Net Metering & DBT Application Documentation"
+  ],
+  "docsCallout": {
+    "heading": "Engineering Documentation on Every Project",
+    "description": "Every installation includes 3D rooftop modelling and shadow analysis before commissioning, with full compliance documentation reviewed against CEA (2023) safety regulations.",
+    "badge": "CEA 2023 Compliant On Every Installation"
+  },
+  "featureBullets": [
+    "3D rooftop modelling & shadow analysis before installation",
+    "MNRE & UPNEDA compliant component selection",
+    "Full technical documentation provided",
+    "Post-installation support & maintenance"
+  ]
+}

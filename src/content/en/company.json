@@ -1,0 +1,32 @@
+{
+  "name": "Greentech",
+  "legalName": "Greentech Energy Solution",
+  "director": "Mohd Shakir",
+  "tagline": "Advanced Solar Engineering",
+  "shortDescription": "Residential, Commercial & Agricultural Solar EPC",
+  "description": "Greentech Energy Solution is a verified wholesaler, dealer, and EPC contractor specialising in industrial, residential, and hybrid solar energy systems. Established in 2020 and headquartered in Aligarh, Uttar Pradesh, we deliver rooftop solar, agricultural solar pumping, and power backup solutions built to MNRE and UPNEDA compliance standards.",
+  "footerDescription": "Greentech Energy Solution — Residential, Commercial & Agricultural Solar EPC. GST-verified, MNRE & UPNEDA empanelled vendor based in Aligarh, Uttar Pradesh.",
+  "philosophyQuote": "Verified. Empanelled. Engineered for Aligarh's climate.",
+  "fullPhilosophyQuote": "Reduce your UPPCL bill to zero — engineered, empanelled, and built for Aligarh's climate.",
+  "philosophyAttribution": "— Greentech Energy Solution, Aligarh",
+  "phones": ["+918460232610"],
+  "email": "info@greentechenergysolution.in",
+  "address": "Anoopshehar Road, Near Petrol Pump, Hamdard Nagar B Jamalpur, Dhorra Mafi, Aligarh, Uttar Pradesh - 202001",
+  "addressShort": "Aligarh, Uttar Pradesh",
+  "website": "www.greentechenergysolution.in",
+  "socials": ["Facebook", "Instagram", "YouTube"],
+  "badgeText": "MNRE & UPNEDA Empanelled Vendor · GST Verified",
+  "govtBadge": {
+    "title": "MNRE & UPNEDA Empanelled Vendor",
+    "subtitle": "GSTIN 09**********2Z9 · PM Surya Ghar Registered"
+  },
+  "copyrightText": "© 2026 Greentech Energy Solution. All rights reserved.",
+  "gstin": "09**********2Z9",
+  "establishedYear": 2020,
+  "turnoverRange": "₹51 Lakh – ₹1 Crore",
+  "installedCapacityKw": 1442,
+  "installationsCount": 431,
+  "rating": 4.9,
+  "ratingSource": "JustDial / Directory Ratings",
+  "paymentMethods": ["Cash", "UPI", "Paytm", "PhonePe", "Amazon Pay", "Cheque", "Demand Draft", "EMI Financing"]
+}

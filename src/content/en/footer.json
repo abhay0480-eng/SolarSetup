@@ -1,0 +1,11 @@
+{
+  "quickLinks": [
+    { "label": "Get a Quote", "path": "/configurator" },
+    { "label": "Solar Products", "path": "/products" },
+    { "label": "Subsidies & Financing", "path": "/subsidies" },
+    { "label": "About Greentech", "path": "/about" },
+    { "label": "Blog", "path": "/blog" }
+  ],
+  "industriesServed": ["Residential Rooftop", "Commercial & Industrial EPC", "Agricultural Solar Pumping", "Group Housing / RWA", "Off-Grid & Backup Power"],
+  "legalLinks": ["Privacy Policy", "Terms of Service"]
+}

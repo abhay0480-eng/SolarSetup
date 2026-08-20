@@ -1,0 +1,40 @@
+{
+  "badgeText": "MNRE & UPNEDA Empanelled · Aligarh, UP · Residential & Commercial",
+  "heading": "About",
+  "headingHighlight": "Greentech Energy Solution",
+  "subheading": "A GST-verified solar EPC company specialising in residential, commercial, and agricultural solar power solutions across Aligarh district, Uttar Pradesh.",
+  "overviewParagraphs": [
+    "Greentech Energy Solution is a verified wholesaler, dealer, and EPC contractor delivering rooftop solar, agricultural solar pumping, and power backup solutions. Established in 2020 and led by Director Mohd Shakir, we've grown to 1,442 kWp installed across 431+ installations, with an annual turnover of ₹51 Lakh – ₹1 Crore.",
+    "As an MNRE & UPNEDA empanelled vendor, we follow strict engineering, safety, and compliance standards on every installation. Our approach is built on transparent, customisable pricing and dependable delivery — not the lowest-quote race that leaves customers with subsidy rejections and undersized systems."
+  ],
+  "facts": [
+    { "label": "Headquarters", "value": "Aligarh, Uttar Pradesh" },
+    { "label": "Industry Focus", "value": "Residential, Commercial & Agricultural Solar" },
+    { "label": "Registration", "value": "GST Verified (09**********2Z9)" },
+    { "label": "Module Partners", "value": "Adani Solar & Waaree Energies" },
+    { "label": "Project Scope", "value": "Rooftop EPC + Agricultural Solar Pumping" },
+    { "label": "Empanelments", "value": "MNRE · UPNEDA · PM Surya Ghar" }
+  ],
+  "statLabels": {
+    "installedCapacity": "Installed Capacity",
+    "installations": "Installations",
+    "customerRating": "Customer Rating",
+    "inOperation": "In Operation",
+    "years": "Yrs"
+  },
+  "companyOverviewTitle": "Company Overview",
+  "whyChooseSubheading": "Six concrete differentiators built into how we work — not claimed in marketing material.",
+  "industriesTitle": "Industries We Serve",
+  "certificationsTitle": "Certifications & Registrations",
+  "certifications": [
+    "GST Verified Business",
+    "MNRE Empanelled",
+    "UPNEDA Approved",
+    "PM Surya Ghar Registered",
+    "ALMM Listed Modules",
+    "DCR Compliant",
+    "IS 3043 Earthing Compliant",
+    "CEA 2023 Compliant",
+    "EN 50618 Certified Cabling"
+  ]
+}

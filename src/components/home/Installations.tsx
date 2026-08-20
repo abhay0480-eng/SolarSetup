@@ -1,142 +1,80 @@
 import { useState } from 'react';
 import { Building2, Zap, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const projects = [
-  {
-    name: 'Reliance Campa Bottling Facility',
-    location: 'Uttar Pradesh',
-    capacity: '700 kW',
-    type: 'Industrial Rooftop',
-    description: 'Large-scale industrial rooftop solar for a beverage manufacturing facility. Engineering-led design with 3D modelling and structural analysis.',
-    img: '/images/install-5.jpeg',
-  },
-  {
-    name: 'Metal Master / Bajaj Locks',
-    location: 'Aligarh, UP',
-    capacity: 'Commercial',
-    type: 'Rooftop On-Grid',
-    description: 'Hardware manufacturing unit. System optimised for industrial load profile with full engineering documentation.',
-    img: '/images/install-1.jpeg',
-  },
-  {
-    name: 'Shanti Devi Ice & Cold Store',
-    location: 'Khair, Aligarh',
-    capacity: 'Cold Storage',
-    type: 'Industrial Solar',
-    description: 'Cold storage facility with continuous power demand. Designed for high uptime and low lifecycle cost.',
-    img: '/images/install-2.jpeg',
-  },
-  {
-    name: 'Rasik Refreshment Pvt. Ltd.',
-    location: 'Ayodhya, UP',
-    capacity: 'Commercial',
-    type: 'Rooftop Solar',
-    description: 'Beverage production unit. Brand-neutral procurement — components selected purely on technical performance for the specific site.',
-    img: '/images/install-5.jpeg',
-  },
-  {
-    name: 'Sadani Overseas',
-    location: 'Aligarh, UP',
-    capacity: 'Commercial',
-    type: 'On-Grid Rooftop',
-    description: 'Export-oriented manufacturing. 56+ engineering parameters evaluated including shadow analysis, string configuration, and structural weight.',
-    img: '/images/install-2.jpeg',
-  },
-];
-
-const stats = [
-  { value: '23+', unit: 'MW', label: 'Commissioned' },
-  { value: '450+', unit: '', label: 'Projects Delivered' },
-  { value: '56+', unit: '', label: 'Engineering Parameters' },
-  { value: '30', unit: 'Yrs', label: 'Lifecycle Focus' },
-];
+import installationsEn from '../../content/en/installations.json';
+import installationsHi from '../../content/hi/installations.json';
+import { imageMap } from '../../content/images';
+import { useContent } from '../../i18n/LanguageContext';
 
 export default function Installations() {
+  const installations = useContent(installationsEn, installationsHi);
   const [active, setActive] = useState(0);
-  const project = projects[active];
+  const project = installations.projects[active];
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-orange-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-amber-500/5 rounded-full blur-3xl" />
+    <section className="py-14 sm:py-20 lg:py-24 relative overflow-hidden bg-surface">
+      <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-solar-100/40 dark:bg-solar-900/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-leaf-100/40 dark:bg-leaf-900/15 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-4">
-            <Building2 size={14} className="text-blue-400" />
-            <span className="text-blue-300 text-sm font-medium">Real Installations · Verified Projects</span>
+        <div className="text-center mb-8 sm:mb-14">
+          <div className="inline-flex items-center gap-2 bg-accent-3-soft border border-sky-200 dark:border-sky-500/25 rounded-full px-4 py-1.5 mb-4">
+            <Building2 size={14} className="text-accent-3" />
+            <span className="text-sky-700 dark:text-sky-300 text-sm font-medium">{installations.badgeText}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Projects We've{' '}
-            <span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">Engineered & Built</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            {installations.heading}{' '}
+            <span className="text-gradient">{installations.headingHighlight}</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            From design to commissioning — industrial and commercial solar across Uttar Pradesh and beyond.
+          <p className="text-foreground-muted text-base sm:text-lg max-w-2xl mx-auto">
+            {installations.subheading}
           </p>
         </div>
 
-        {/* Stats row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-14">
-          {stats.map((s) => (
-            <div key={s.label} className="glass rounded-2xl p-5 text-center">
-              <div className="text-2xl sm:text-3xl font-black text-gradient mb-1">
-                {s.value}<span className="text-lg font-bold text-orange-400">{s.unit}</span>
-              </div>
-              <div className="text-gray-400 text-sm">{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Featured project viewer */}
-        <div className="grid lg:grid-cols-2 gap-8 items-center mb-8">
+        {/* Featured project viewer — bento */}
+        <div className="grid lg:grid-cols-2 gap-5 sm:gap-6 items-stretch mb-6 sm:mb-8">
           {/* Photo */}
-          <div className="relative rounded-3xl overflow-hidden aspect-[4/3] glass">
+          <div className="relative rounded-3xl overflow-hidden aspect-[4/3] group shadow-[var(--shadow-bento-lg)] border border-border">
             <img
-              src={project.img}
+              src={imageMap[project.imageKey]}
               alt={project.name}
-              className="w-full h-full object-cover object-center opacity-80 hover:opacity-100 transition-opacity duration-300"
+              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5">
               <div className="flex items-center gap-2 mb-1">
-                <MapPin size={13} className="text-orange-400" />
-                <span className="text-orange-300 text-sm font-medium">{project.location}</span>
+                <MapPin size={13} className="text-solar-300" />
+                <span className="text-solar-200 text-sm font-medium">{project.location}</span>
               </div>
               <h3 className="text-white font-bold text-lg leading-tight">{project.name}</h3>
             </div>
           </div>
 
           {/* Details */}
-          <div className="space-y-5">
+          <div className="bento p-5 sm:p-7 flex flex-col justify-center space-y-4 sm:space-y-5">
             <div>
-              <span className="inline-flex items-center gap-1.5 bg-orange-500/15 border border-orange-500/25 rounded-full px-3 py-1 text-orange-300 text-sm font-medium mb-3">
+              <span className="inline-flex items-center gap-1.5 bg-accent-soft border border-solar-200 dark:border-solar-500/25 rounded-full px-3 py-1 text-accent-strong dark:text-accent text-sm font-medium mb-3">
                 <Zap size={12} /> {project.type}
               </span>
-              <h3 className="text-white text-2xl font-bold mb-2">{project.name}</h3>
-              <p className="text-gray-400 leading-relaxed">{project.description}</p>
+              <h3 className="text-foreground text-xl sm:text-2xl font-bold mb-2">{project.name}</h3>
+              <p className="text-foreground-muted leading-relaxed text-sm sm:text-base">{project.description}</p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="glass rounded-xl p-4">
-                <p className="text-gray-400 text-xs mb-1">Capacity</p>
-                <p className="text-white font-bold">{project.capacity}</p>
+              <div className="bg-canvas-alt rounded-xl p-4">
+                <p className="text-foreground-subtle text-xs mb-1">{installations.capacityLabel}</p>
+                <p className="text-foreground font-bold">{project.capacity}</p>
               </div>
-              <div className="glass rounded-xl p-4">
-                <p className="text-gray-400 text-xs mb-1">Location</p>
-                <p className="text-white font-bold">{project.location}</p>
+              <div className="bg-canvas-alt rounded-xl p-4">
+                <p className="text-foreground-subtle text-xs mb-1">{installations.locationLabel}</p>
+                <p className="text-foreground font-bold">{project.location}</p>
               </div>
             </div>
 
-            <div className="glass rounded-2xl p-4 space-y-2">
-              {[
-                'Engineering-led design with 3D modelling',
-                '56+ engineering parameters evaluated',
-                'Full technical documentation provided',
-                'Long-term O&M monitoring included',
-              ].map((point) => (
-                <div key={point} className="flex items-start gap-2 text-sm text-gray-300">
-                  <span className="w-1.5 h-1.5 bg-orange-400 rounded-full mt-1.5 shrink-0" />
+            <div className="bg-canvas-alt rounded-2xl p-4 space-y-2">
+              {installations.featureBullets.map((point) => (
+                <div key={point} className="flex items-start gap-2 text-sm text-foreground-muted">
+                  <span className="w-1.5 h-1.5 bg-accent-2 rounded-full mt-1.5 shrink-0" />
                   {point}
                 </div>
               ))}
@@ -145,26 +83,27 @@ export default function Installations() {
         </div>
 
         {/* Project thumbnails */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 mb-8 sm:mb-14">
           <button
-            onClick={() => setActive(a => (a - 1 + projects.length) % projects.length)}
-            className="w-10 h-10 glass rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-colors shrink-0"
+            onClick={() => setActive(a => (a - 1 + installations.projects.length) % installations.projects.length)}
+            className="w-11 h-11 bento flex items-center justify-center text-foreground-subtle hover:text-foreground transition-colors shrink-0"
+            aria-label="Previous project"
           >
             <ChevronLeft size={18} />
           </button>
 
           <div className="flex gap-3 overflow-x-auto scrollbar-hide flex-1">
-            {projects.map((p, i) => (
+            {installations.projects.map((p, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className={`relative rounded-2xl overflow-hidden aspect-[4/3] w-36 shrink-0 transition-all duration-200 ${
+                className={`relative rounded-2xl overflow-hidden aspect-[4/3] w-32 sm:w-36 shrink-0 transition-all duration-300 ${
                   i === active
-                    ? 'ring-2 ring-orange-400 opacity-100'
-                    : 'opacity-50 hover:opacity-75'
+                    ? 'ring-2 ring-solar-500 opacity-100 scale-105'
+                    : 'opacity-70 sm:opacity-60 hover:opacity-90'
                 }`}
               >
-                <img src={p.img} alt={p.name} className="w-full h-full object-cover object-center" />
+                <img src={imageMap[p.imageKey]} alt={p.name} className="w-full h-full object-cover object-center" />
                 <div className="absolute inset-0 bg-black/30" />
                 <p className="absolute bottom-1 left-1 right-1 text-white text-[10px] font-medium leading-tight px-1 line-clamp-2">
                   {p.name}
@@ -174,36 +113,59 @@ export default function Installations() {
           </div>
 
           <button
-            onClick={() => setActive(a => (a + 1) % projects.length)}
-            className="w-10 h-10 glass rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-colors shrink-0"
+            onClick={() => setActive(a => (a + 1) % installations.projects.length)}
+            className="w-11 h-11 bento flex items-center justify-center text-foreground-subtle hover:text-foreground transition-colors shrink-0"
+            aria-label="Next project"
           >
             <ChevronRight size={18} />
           </button>
         </div>
 
-        {/* Engineering Documentation callout */}
-        <div className="mt-12 glass rounded-3xl p-6 sm:p-8">
-          <div className="grid sm:grid-cols-2 gap-6 items-center">
-            <div>
-              <h3 className="text-white text-xl font-bold mb-2">Engineering Documentation on Every Project</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                We engineer before we quote — not the other way around. Every project includes full technical documentation,
-                shadow analysis, and system optimization studies.
-              </p>
+        {/* Client Ticker */}
+        <div className="mb-8 sm:mb-14">
+          <h3 className="text-center text-foreground font-bold text-lg sm:text-xl mb-2">{installations.clientsHeading}</h3>
+          <p className="text-center text-foreground-subtle text-sm mb-5 sm:mb-6">{installations.clientsSubheading}</p>
+          <div className="relative overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-r from-surface to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-surface to-transparent z-10" />
+            <div
+              className="flex gap-3 w-max"
+              style={{ animation: 'scrollClients 40s linear infinite' }}
+            >
+              {[...installations.clients, ...installations.clients].map((client, i) => (
+                <div
+                  key={i}
+                  className="bento rounded-xl px-4 py-2.5 whitespace-nowrap text-foreground-muted text-sm font-medium hover:text-foreground hover:border-solar-300 dark:hover:border-solar-500/40 transition-colors"
+                >
+                  {client}
+                </div>
+              ))}
             </div>
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              {[
-                '3D Solar Plant Modelling',
-                'Shadow Analysis Report',
-                'Single Line Diagram (SLD)',
-                'PV Array Layout Drawing',
-                'Cable Routing & Electrical Layout',
-                'Equipment Datasheets & BOQ',
-                'Inverter & String Config Analysis',
-                'Roof Load & Structural Analysis',
-              ].map((doc) => (
-                <div key={doc} className="flex items-center gap-2 text-gray-300">
-                  <span className="w-1 h-1 bg-green-400 rounded-full shrink-0" />
+            <style>{`
+              @keyframes scrollClients {
+                from { transform: translateX(0); }
+                to { transform: translateX(-50%); }
+              }
+            `}</style>
+          </div>
+        </div>
+
+        {/* Engineering Documentation callout */}
+        <div className="bento p-5 sm:p-8">
+          <div className="grid sm:grid-cols-2 gap-5 sm:gap-6 items-start">
+            <div>
+              <h3 className="text-foreground text-lg sm:text-xl font-bold mb-2">{installations.docsCallout.heading}</h3>
+              <p className="text-foreground-muted text-sm leading-relaxed mb-4">
+                {installations.docsCallout.description}
+              </p>
+              <div className="inline-flex items-center gap-2 bg-accent-2-soft border border-leaf-200 dark:border-leaf-500/25 rounded-full px-4 py-1.5">
+                <span className="text-leaf-700 dark:text-leaf-300 text-sm font-medium">{installations.docsCallout.badge}</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-sm">
+              {installations.engineeringDocs.map((doc) => (
+                <div key={doc} className="flex items-center gap-2 text-foreground-muted">
+                  <span className="w-1 h-1 bg-accent rounded-full shrink-0" />
                   <span className="text-xs">{doc}</span>
                 </div>
               ))}

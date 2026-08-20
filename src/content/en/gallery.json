@@ -1,0 +1,25 @@
+{
+  "badgeText": "Real Project Photos · No Stock Images",
+  "heading": "From the",
+  "headingHighlight": "Field",
+  "subheading": "Every photo is from a real Greentech project site — from ACDB installation to panel mounting and structure assembly.",
+  "categories": [
+    { "key": "all", "label": "All Photos" },
+    { "key": "electrical", "label": "Electrical Work" },
+    { "key": "structure", "label": "Structure" },
+    { "key": "panel", "label": "Panel Installation" }
+  ],
+  "items": [
+    { "imageKey": "acdbInstall", "alt": "Technician installing ACDB box on wall", "caption": "ACDB Box Installation — Electrical Distribution Setup", "category": "electrical" },
+    { "imageKey": "structureAssembly", "alt": "Worker assembling mounting structure on rooftop", "caption": "Mounting Structure Assembly — Rooftop Framework Setup", "category": "structure" },
+    { "imageKey": "panelPlacement", "alt": "Worker placing solar panel on rooftop mounting structure", "caption": "Panel Placement — Securing Module to Rooftop Structure", "category": "panel" },
+    { "imageKey": "panelCarry", "alt": "Two workers carrying solar panel on rooftop", "caption": "Team Work — Carrying Solar Panel to Installation Point", "category": "panel" },
+    { "imageKey": "panelLift", "alt": "Worker lifting solar panel near meter box", "caption": "Panel Lifting — Positioning Module for Ground Mount", "category": "panel" }
+  ],
+  "stats": [
+    { "value": "5+", "label": "Active Project Sites" },
+    { "value": "100%", "label": "Real Photography" },
+    { "value": "0", "label": "Stock Images Used" },
+    { "value": "431+", "label": "Installations Completed" }
+  ]
+}

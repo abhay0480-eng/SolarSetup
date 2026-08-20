@@ -1,188 +1,140 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Shield, Award, IndianRupee, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import heroBg from '../../assets/hero-bg.jpg';
+import heroEn from '../../content/en/hero.json';
+import heroHi from '../../content/hi/hero.json';
+import { iconMap } from '../../content/icons';
+import { useContent } from '../../i18n/LanguageContext';
 
 export default function Hero() {
+  const hero = useContent(heroEn, heroHi);
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden">
+      {/* Background image — full bleed */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-500/8 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[400px] bg-blue-900/20 rounded-full blur-3xl" />
-        {/* Grid pattern */}
+        <img
+          src={heroBg}
+          alt="Solar panel installation"
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Left-to-right gradient overlay — adjusted for mobile to allow text readability */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 bg-white/80 sm:bg-transparent"
           style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
+            background: window.innerWidth >= 640 ?
+              'linear-gradient(to right, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0.1) 65%, transparent 80%)'
+              : 'linear-gradient(to top, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.4) 100%)',
+          }}
+        />
+        {/* Subtle bottom gradient for stats readability */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(to top, rgba(255,255,255,0.3) 0%, transparent 15%)',
           }}
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Text */}
-          <div>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
-              <span className="text-orange-300 text-sm font-medium">Government-Empanelled EPC Company · MNRE · GeM · UPNEDA</span>
-            </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-56 sm:pb-20 w-full">
+        <div className="max-w-2xl">
+          {/* Main heading */}
+          <h1 className="mb-4 sm:mb-6" style={{ textShadow: '0 1px 8px rgba(255,255,255,0.8), 0 0 2px rgba(255,255,255,0.9)' }}>
+            <span className="block text-[#0d2137] text-3xl sm:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold leading-[1.1] tracking-tight uppercase">
+              {hero.headingLine1}
+            </span>
+            <span className="block text-[#1a6339] text-3xl sm:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold leading-[1.1] tracking-tight uppercase italic">
+              {hero.headingHighlight}
+            </span>
+            <span className="block text-[#0d2137] text-3xl sm:text-5xl lg:text-[3.5rem] xl:text-[4rem] font-extrabold leading-[1.1] tracking-tight uppercase">
+              {hero.headingLine3}
+            </span>
+          </h1>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Engineering{' '}
-              <span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
-                The Energy
-              </span>{' '}
-              for India
-            </h1>
+          {/* Green accent line */}
+          <div className="w-16 h-1 bg-[#1a6339] rounded-full mb-6" />
 
-            <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-xl">
-              Industrial & Commercial Solar EPC — design your custom system component by component.
-              Real Indian brands, live pricing, and state-specific PM Surya Ghar subsidies applied instantly.
-            </p>
+          {/* Subtitle */}
+          <p className="text-[#2d3748] text-base sm:text-lg lg:text-xl leading-relaxed mb-8 max-w-xl font-medium" style={{ textShadow: '0 1px 6px rgba(255,255,255,0.6)' }}>
+            {hero.subtitle}
+          </p>
 
-            {/* Features row */}
-            <div className="flex flex-wrap gap-4 mb-10">
-              {[
-                { icon: IndianRupee, text: 'State Subsidies Applied' },
-                { icon: Shield, text: 'BIS Certified Products' },
-                { icon: Award, text: 'MNRE Empanelled' },
-              ].map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-2 text-gray-300 text-sm">
-                  <div className="w-7 h-7 bg-orange-500/15 rounded-lg flex items-center justify-center">
-                    <Icon size={14} className="text-orange-400" />
+          {/* Feature badges row */}
+          <div className="flex flex-wrap items-center gap-0 mb-10">
+            {hero.features.map((feat, idx) => {
+              const Icon = iconMap[feat.icon];
+              return (
+                <div key={feat.label} className="flex items-center">
+                  {idx > 0 && (
+                    <div className="w-px h-10 bg-gray-300 mx-4 sm:mx-6" />
+                  )}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1a6339] flex items-center justify-center shrink-0 shadow-md shadow-green-900/20">
+                      <Icon size={18} className="text-white" />
+                    </div>
+                    <div>
+                      <span className="block text-[#0d2137] text-xs sm:text-sm font-bold leading-tight">
+                        {feat.label}
+                      </span>
+                      <span className="block text-[#5a6a7c] text-xs sm:text-sm leading-tight">
+                        {feat.sublabel}
+                      </span>
+                    </div>
                   </div>
-                  {text}
                 </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to="/configurator"
-                className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold px-8 py-4 rounded-2xl hover:from-orange-400 hover:to-amber-400 transition-all duration-200 shadow-xl shadow-orange-500/30 text-lg group"
-              >
-                <Zap size={20} />
-                Start Designing
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/subsidies"
-                className="flex items-center gap-2 bg-white/5 border border-white/10 text-white font-semibold px-8 py-4 rounded-2xl hover:bg-white/10 transition-all duration-200 text-lg"
-              >
-                Check Subsidies
-              </Link>
-            </div>
+              );
+            })}
           </div>
 
-          {/* Right: Solar Illustration */}
-          <div className="relative flex items-center justify-center">
-            <SolarIllustration />
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
+            <Link
+              to="/configurator"
+              className="group flex justify-center items-center gap-2 bg-[#1a6339] text-white font-bold w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-md hover:bg-[#14522e] transition-all duration-200 text-sm sm:text-base tracking-wide uppercase shadow-lg shadow-green-900/25"
+            >
+              {hero.primaryCta}
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </Link>
+            <Link
+              to="/products"
+              className="group flex justify-center items-center gap-2 bg-transparent text-[#0d2137] font-bold w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-md border-2 border-[#0d2137] hover:bg-[#0d2137] hover:text-white transition-all duration-200 text-sm sm:text-base tracking-wide uppercase"
+            >
+              {hero.secondaryCta}
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-1 transition-transform"
+              />
+            </Link>
           </div>
-        </div>
-
-        {/* Stats Bar */}
-        <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {[
-            { value: '23+ MW', label: 'Commissioned' },
-            { value: '450+', label: 'Projects Delivered' },
-            { value: '56+', label: 'Engineering Parameters' },
-            { value: '30 Yrs', label: 'Lifecycle Focus' },
-          ].map((stat) => (
-            <div key={stat.label} className="glass rounded-2xl p-5 text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-gradient mb-1">{stat.value}</div>
-              <div className="text-gray-400 text-sm">{stat.label}</div>
-            </div>
-          ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-function SolarIllustration() {
-  return (
-    <div className="relative w-full max-w-lg">
-      {/* Main house with solar */}
-      <div className="relative">
-        {/* Glow effect */}
-        <div className="absolute inset-0 bg-orange-500/20 rounded-3xl blur-3xl scale-110" />
-
-        <div className="relative glass rounded-3xl p-8 space-y-4">
-          {/* Solar panel grid */}
-          <div className="grid grid-cols-3 gap-2 mb-6">
-            {Array.from({ length: 6 }).map((_, i) => (
+      {/* Stats Bar — floating at the very bottom */}
+      <div className="absolute bottom-0 left-0 right-0 z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            {hero.stats.map((stat) => (
               <div
-                key={i}
-                className="aspect-[4/3] bg-gradient-to-br from-slate-700 to-slate-900 rounded-lg border border-slate-600 relative overflow-hidden"
-                style={{ animationDelay: `${i * 0.2}s` }}
+                key={stat.label}
+                className="bg-white/80 backdrop-blur-md rounded-xl p-4 sm:p-5 text-center border border-white/60 shadow-lg shadow-black/5"
               >
-                {/* Panel cell lines */}
-                <div className="absolute inset-1 grid grid-cols-2 gap-0.5">
-                  {Array.from({ length: 4 }).map((_, j) => (
-                    <div key={j} className="bg-slate-600/40 rounded-sm" />
-                  ))}
+                <div className="text-xl sm:text-2xl lg:text-3xl font-extrabold mb-0.5">
+                  <span className="text-[#1a6339]">{stat.value}</span>
+                  <span className="text-[#1a6339] text-sm sm:text-base font-bold">
+                    {stat.unit}
+                  </span>
                 </div>
-                {/* Shine effect */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-300/30 to-transparent" />
+                <div className="text-[#5a6a7c] text-xs sm:text-sm font-medium">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
-
-          {/* Live reading card */}
-          <div className="bg-gradient-to-r from-orange-500/20 to-amber-500/10 border border-orange-500/30 rounded-2xl p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-300 text-sm">Live Generation</span>
-              <span className="flex items-center gap-1 text-green-400 text-xs">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                LIVE
-              </span>
-            </div>
-            <div className="flex items-end gap-2">
-              <span className="text-3xl font-bold text-white">4.2</span>
-              <span className="text-orange-300 font-semibold mb-1">kW</span>
-            </div>
-            <div className="grid grid-cols-2 gap-3 mt-3">
-              <div>
-                <p className="text-gray-400 text-xs">Today's Units</p>
-                <p className="text-white font-semibold">18.5 kWh</p>
-              </div>
-              <div>
-                <p className="text-gray-400 text-xs">Monthly Savings</p>
-                <p className="text-green-400 font-semibold">₹2,840</p>
-              </div>
-            </div>
-          </div>
-
-          {/* System info */}
-          <div className="flex gap-3">
-            <div className="flex-1 bg-white/5 rounded-xl p-3 text-center">
-              <p className="text-gray-400 text-xs mb-1">System</p>
-              <p className="text-white font-bold">5 kW</p>
-              <p className="text-orange-400 text-xs">Hybrid</p>
-            </div>
-            <div className="flex-1 bg-white/5 rounded-xl p-3 text-center">
-              <p className="text-gray-400 text-xs mb-1">Subsidy</p>
-              <p className="text-green-400 font-bold">₹78K</p>
-              <p className="text-gray-400 text-xs">Applied</p>
-            </div>
-            <div className="flex-1 bg-white/5 rounded-xl p-3 text-center">
-              <p className="text-gray-400 text-xs mb-1">ROI</p>
-              <p className="text-amber-400 font-bold">4.2 yr</p>
-              <p className="text-gray-400 text-xs">Payback</p>
-            </div>
-          </div>
         </div>
       </div>
-
-      {/* Floating badges */}
-      <div className="absolute -top-4 -right-4 glass rounded-xl px-3 py-2 text-xs font-semibold text-green-400 border border-green-500/20 animate-bounce">
-        ₹1.2L Saved!
-      </div>
-      <div className="absolute -bottom-4 -left-4 glass rounded-xl px-3 py-2 text-xs font-semibold text-orange-400 border border-orange-500/20">
-        Waaree • 440W × 12
-      </div>
-    </div>
+    </section>
   );
 }

@@ -1,0 +1,20 @@
+{
+  "badgeText": "MNRE और UPNEDA पैनलबद्ध विक्रेता · GST सत्यापित · 4.9★ रेटेड",
+  "headingLine1": "एक स्थायी कल",
+  "headingHighlight": "को ऊर्जा",
+  "headingLine3": "दे रहे हैं",
+  "subtitle": "स्वच्छ, उज्जवल और हरित भविष्य के लिए स्मार्ट सोलर समाधान।",
+  "features": [
+    { "icon": "Shield", "label": "विशेषज्ञ", "sublabel": "इंस्टॉलेशन" },
+    { "icon": "Award", "label": "प्रीमियम", "sublabel": "गुणवत्ता" },
+    { "icon": "Zap", "label": "विश्वसनीय", "sublabel": "प्रदर्शन" }
+  ],
+  "primaryCta": "निःशुल्क परामर्श प्राप्त करें",
+  "secondaryCta": "सेवाएं देखें",
+  "stats": [
+    { "value": "1,442", "unit": " kWp", "label": "स्थापित क्षमता" },
+    { "value": "431+", "unit": "", "label": "इंस्टॉलेशन" },
+    { "value": "4.9", "unit": "/5", "label": "ग्राहक रेटिंग" },
+    { "value": "6+", "unit": " वर्ष", "label": "परिचालन में" }
+  ]
+}

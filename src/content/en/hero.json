@@ -1,0 +1,20 @@
+{
+  "badgeText": "MNRE & UPNEDA Empanelled Vendor · GST Verified · 4.9★ Rated",
+  "headingLine1": "POWERING A",
+  "headingHighlight": "SUSTAINABLE",
+  "headingLine3": "TOMORROW",
+  "subtitle": "Smart Solar Solutions for a Cleaner, Brighter & Greener Future.",
+  "features": [
+    { "icon": "Shield", "label": "Expert", "sublabel": "Installation" },
+    { "icon": "Award", "label": "Premium", "sublabel": "Quality" },
+    { "icon": "Zap", "label": "Reliable", "sublabel": "Performance" }
+  ],
+  "primaryCta": "GET A FREE CONSULTATION",
+  "secondaryCta": "EXPLORE SERVICES",
+  "stats": [
+    { "value": "1,442", "unit": " kWp", "label": "Installed Capacity" },
+    { "value": "431+", "unit": "", "label": "Installations" },
+    { "value": "4.9", "unit": "/5", "label": "Customer Rating" },
+    { "value": "6+", "unit": " Yrs", "label": "In Operation" }
+  ]
+}

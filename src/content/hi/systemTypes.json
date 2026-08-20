@@ -1,0 +1,76 @@
+{
+  "badgeText": "अपना सिस्टम प्रकार चुनें",
+  "heading": "आपके लिए कौन सा सोलर सिस्टम",
+  "headingHighlight": "सही है?",
+  "subheading": "हर संपत्ति अलग होती है। ग्रीनटेक आपके लोड प्रोफाइल, ग्रिड उपलब्धता और बजट से मेल खाता सिस्टम इंजीनियर करता है।",
+  "ctaLabel": "यह सिस्टम डिज़ाइन करें",
+  "startingFromLabel": "शुरुआती कीमत",
+  "systems": [
+    {
+      "id": "on-grid",
+      "icon": "Globe",
+      "title": "ऑन-ग्रिड सोलर",
+      "subtitle": "ग्रिड-टाइड सिस्टम",
+      "badge": "सबसे लोकप्रिय",
+      "badgeColor": "bg-blue-500",
+      "gradient": "from-blue-500/20 to-cyan-500/10",
+      "border": "border-blue-500/30",
+      "glow": "shadow-blue-500/20",
+      "iconBg": "from-blue-500 to-cyan-400",
+      "features": [
+        "अतिरिक्त बिजली ग्रिड को निर्यात करें (नेट मीटरिंग)",
+        "अधिकतम PM सूर्य घर सब्सिडी के लिए पात्र",
+        "बैटरी की आवश्यकता नहीं — सबसे कम लागत",
+        "ग्रिड आपके बैकअप स्टोरेज का काम करता है",
+        "ROI: 2.5–4 वर्ष"
+      ],
+      "suitable": "विश्वसनीय ग्रिड आपूर्ति वाले क्षेत्रों के लिए सर्वोत्तम। अधिकांश शहरी घरों के लिए आदर्श।",
+      "priceRange": "₹35,000 – ₹1.5L",
+      "path": "/configurator?type=on-grid"
+    },
+    {
+      "id": "hybrid",
+      "icon": "Zap",
+      "title": "हाइब्रिड सोलर",
+      "subtitle": "ग्रिड + बैटरी",
+      "badge": "अनुशंसित",
+      "badgeColor": "bg-orange-500",
+      "gradient": "from-orange-500/20 to-amber-500/10",
+      "border": "border-orange-500/30",
+      "glow": "shadow-orange-500/20",
+      "iconBg": "from-orange-500 to-amber-400",
+      "features": [
+        "बिजली कटौती के दौरान पावर बैकअप",
+        "स्मार्ट बैटरी + ग्रिड स्विचिंग",
+        "बैटरी फुल होने पर ग्रिड को निर्यात करें",
+        "सोलर हिस्से पर सब्सिडी लागू",
+        "ROI: 4–6 वर्ष"
+      ],
+      "suitable": "बार-बार बिजली कटौती वाले क्षेत्रों के लिए बिल्कुल सही। दोनों दुनिया का सर्वश्रेष्ठ।",
+      "priceRange": "₹65,000 – ₹3L",
+      "path": "/configurator?type=hybrid"
+    },
+    {
+      "id": "off-grid",
+      "icon": "Battery",
+      "title": "ऑफ-ग्रिड सोलर",
+      "subtitle": "पूर्णतः स्वतंत्र",
+      "badge": "ग्रामीण और दूरस्थ",
+      "badgeColor": "bg-green-500",
+      "gradient": "from-green-500/20 to-emerald-500/10",
+      "border": "border-green-500/30",
+      "glow": "shadow-green-500/20",
+      "iconBg": "from-green-500 to-emerald-400",
+      "features": [
+        "पूर्ण ग्रिड स्वतंत्रता",
+        "बैटरी बैंक सारी ऊर्जा संग्रहीत करता है",
+        "बिना-ग्रिड / दूरस्थ क्षेत्रों के लिए आदर्श",
+        "बिल्कुल भी बिजली बिल नहीं",
+        "ROI: 5–8 वर्ष"
+      ],
+      "suitable": "ग्रिड कनेक्टिविटी के बिना खेतों, गांवों, दूरस्थ घरों के लिए आदर्श।",
+      "priceRange": "₹80,000 – ₹4L",
+      "path": "/configurator?type=off-grid"
+    }
+  ]
+}

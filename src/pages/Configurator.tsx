@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 import StepHeader from '../components/configurator/StepHeader';
 import Step1Basics from '../components/configurator/Step1Basics';
 import Step2SystemType from '../components/configurator/Step2SystemType';
@@ -13,6 +13,9 @@ import Step8Summary from '../components/configurator/Step8Summary';
 import LivePriceBar from '../components/configurator/LivePriceBar';
 import type { SystemConfig } from '../types/solar';
 import { defaultBosSelections } from '../utils/priceCalculator';
+import configuratorEn from '../content/en/configurator.json';
+import configuratorHi from '../content/hi/configurator.json';
+import { useContent } from '../i18n/LanguageContext';
 
 const defaultBos = defaultBosSelections('hybrid');
 
@@ -30,12 +33,23 @@ const defaultConfig: SystemConfig = {
   bos: defaultBos,
 };
 
-const STEP_LABELS = ['Basics', 'System', 'Panels', 'Inverter', 'Battery', 'Mounting', 'Wiring & BOS', 'Summary'];
-
 export default function Configurator() {
+  const { shell, stepLabels } = useContent(configuratorEn, configuratorHi);
   const [searchParams] = useSearchParams();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(() => {
+    const saved = localStorage.getItem('zenbright_config_step');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  
   const [config, setConfig] = useState<SystemConfig>(() => {
+    const saved = localStorage.getItem('zenbright_config_data');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        // ignore JSON parse error
+      }
+    }
     const type = searchParams.get('type');
     if (type === 'on-grid' || type === 'off-grid' || type === 'hybrid') {
       const bos = defaultBosSelections(type);
@@ -45,8 +59,22 @@ export default function Configurator() {
   });
 
   useEffect(() => {
+    localStorage.setItem('zenbright_config_step', step.toString());
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
+
+  useEffect(() => {
+    localStorage.setItem('zenbright_config_data', JSON.stringify(config));
+  }, [config]);
+
+  const handleReset = () => {
+    if (window.confirm(shell.resetConfirm)) {
+      localStorage.removeItem('zenbright_config_step');
+      localStorage.removeItem('zenbright_config_data');
+      setStep(0);
+      setConfig(defaultConfig);
+    }
+  };
 
   const updateConfig = (updates: Partial<SystemConfig>) => {
     setConfig(prev => ({ ...prev, ...updates }));
@@ -80,65 +108,68 @@ export default function Configurator() {
   };
 
   return (
-    <div className="min-h-screen pt-20">
-      <div className="bg-gradient-to-b from-white/5 to-transparent border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-2xl font-bold text-white mb-1">Custom Solar Setup Designer</h1>
-          <p className="text-gray-400 text-sm">
-            Step {step + 1} of {STEP_LABELS.length}:{' '}
-            <span className="text-orange-400">{STEP_LABELS[step]}</span>
-          </p>
+    <div className="min-h-screen pt-16 lg:pt-20 pb-24 lg:pb-0">
+      <div className="bg-gradient-to-b from-solar-500/[0.06] to-transparent border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-lg sm:text-2xl font-bold text-foreground mb-0.5 sm:mb-1 truncate">{shell.title}</h1>
+            <p className="text-foreground-muted text-xs sm:text-sm">
+              {shell.stepOf.replace('{n}', String(step + 1)).replace('{total}', String(stepLabels.length))}{' '}
+              <span className="text-solar-600 dark:text-solar-400">{stepLabels[step]}</span>
+            </p>
+          </div>
+          <button
+            onClick={handleReset}
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-red-500/10 dark:bg-red-500/15 text-red-500 dark:text-red-400 rounded-xl hover:bg-red-500/20 transition-colors text-xs sm:text-sm font-medium border border-red-500/20 shrink-0"
+          >
+            <RefreshCw size={16} /> <span className="hidden sm:inline">{shell.resetLabel}</span>
+          </button>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8">
         <StepHeader currentStep={step} />
 
-        <div className="grid lg:grid-cols-[1fr_300px] gap-8 mt-8">
+        <div className="grid lg:grid-cols-[1fr_300px] gap-6 lg:gap-8 mt-5 sm:mt-8">
           {/* Main content */}
           <div className="min-w-0">
-            <div className="glass rounded-3xl p-5 sm:p-8">
+            <div className="bento p-4 sm:p-5 lg:p-8">
               {renderStep()}
 
               {/* Navigation */}
-              <div className="flex items-center justify-between mt-10 pt-6 border-t border-white/10">
+              <div className="flex items-center justify-between mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-border">
                 <button
                   onClick={() => setStep(s => s - 1)}
                   disabled={step === 0}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-medium"
+                  className="flex items-center gap-1.5 sm:gap-2 px-4 sm:px-5 py-3 min-h-11 rounded-full border border-border text-foreground-muted hover:bg-surface-alt disabled:opacity-40 disabled:cursor-not-allowed transition-all font-medium text-sm sm:text-base"
                 >
-                  <ChevronLeft size={18} /> Back
+                  <ChevronLeft size={18} /> {shell.back}
                 </button>
 
-                <span className="text-gray-500 text-sm">{step + 1} / {STEP_LABELS.length}</span>
+                <span className="hidden sm:inline text-foreground-subtle text-sm">{step + 1} / {stepLabels.length}</span>
 
-                {step < STEP_LABELS.length - 1 ? (
+                {step < stepLabels.length - 1 ? (
                   <button
                     onClick={() => setStep(s => s + 1)}
                     disabled={!canProceed()}
-                    className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold hover:from-orange-400 hover:to-amber-400 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-500/20"
+                    className="flex items-center gap-1.5 sm:gap-2 px-5 sm:px-6 py-3 min-h-11 rounded-full bg-gradient-to-r from-solar-500 to-solar-600 text-white font-semibold hover:shadow-lg hover:shadow-solar-500/30 disabled:opacity-40 disabled:cursor-not-allowed transition-all text-sm sm:text-base"
                   >
-                    {canProceed() ? 'Next' : 'Select to continue'}
+                    {canProceed() ? shell.next : shell.selectToContinue}
                     <ChevronRight size={18} />
                   </button>
                 ) : (
-                  <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold hover:from-green-400 hover:to-emerald-400 transition-all shadow-lg shadow-green-500/20">
-                    Get Final Quote <ChevronRight size={18} />
+                  <button className="flex items-center gap-1.5 sm:gap-2 px-5 sm:px-6 py-3 min-h-11 rounded-full bg-gradient-to-r from-leaf-600 to-leaf-500 text-white font-semibold hover:shadow-lg hover:shadow-leaf-500/30 transition-all text-sm sm:text-base">
+                    {shell.getFinalQuote} <ChevronRight size={18} />
                   </button>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="hidden lg:block">
+          {/* Price sidebar (desktop sticky card + mobile sticky bottom bar, handled internally) */}
+          <div>
             <LivePriceBar config={config} />
           </div>
-        </div>
-
-        {/* Mobile sidebar */}
-        <div className="lg:hidden mt-6">
-          <LivePriceBar config={config} />
         </div>
       </div>
     </div>

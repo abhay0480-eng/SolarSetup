@@ -1,13 +1,13 @@
-const panelBrands = ['Waaree', 'Adani Solar', 'Vikram Solar', 'Tata Power Solar', 'Premier Energies', 'Goldi Solar', 'RenewSys', 'Luminous'];
-const inverterBrands = ['Growatt', 'Sungrow', 'Delta', 'Luminous', 'Havells', 'SMA', 'Flin Energy', 'Su-Kam', 'Microtek'];
-const batteryBrands = ['Luminous', 'Exide', 'Amaron', 'Okaya', 'Livguard', 'Su-Kam', 'Coslight'];
+import brandsEn from '../../content/en/brands.json';
+import brandsHi from '../../content/hi/brands.json';
+import { useContent } from '../../i18n/LanguageContext';
 
-function BrandScroller({ brands, direction = 'left' }: { brands: string[]; direction?: 'left' | 'right' }) {
-  const doubled = [...brands, ...brands];
+function BrandScroller({ brandList, direction = 'left' }: { brandList: string[]; direction?: 'left' | 'right' }) {
+  const doubled = [...brandList, ...brandList];
   return (
     <div className="relative overflow-hidden">
       <div
-        className={`flex gap-4 w-max ${direction === 'left' ? 'animate-[scroll-left_20s_linear_infinite]' : 'animate-[scroll-right_20s_linear_infinite]'}`}
+        className="flex gap-3 sm:gap-4 w-max"
         style={{
           animation: `${direction === 'left' ? 'scrollLeft' : 'scrollRight'} 25s linear infinite`,
         }}
@@ -15,7 +15,7 @@ function BrandScroller({ brands, direction = 'left' }: { brands: string[]; direc
         {doubled.map((brand, i) => (
           <div
             key={i}
-            className="glass rounded-xl px-5 py-2.5 whitespace-nowrap text-gray-300 text-sm font-medium hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="bento rounded-xl px-4 sm:px-5 py-3 sm:py-2.5 whitespace-nowrap text-foreground-muted text-sm font-medium hover:text-foreground hover:border-solar-300 dark:hover:border-solar-500/40 transition-colors cursor-pointer"
           >
             {brand}
           </div>
@@ -36,54 +36,55 @@ function BrandScroller({ brands, direction = 'left' }: { brands: string[]; direc
 }
 
 export default function Brands() {
+  const brands = useContent(brandsEn, brandsHi);
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 relative overflow-hidden bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Real Products from{' '}
-            <span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">
-              Trusted Indian Brands
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+            {brands.heading}{' '}
+            <span className="text-gradient">
+              {brands.headingHighlight}
             </span>
           </h2>
-          <p className="text-gray-400">All products BIS certified and MNRE approved</p>
+          <p className="text-foreground-muted">{brands.subheading}</p>
         </div>
 
         <div className="space-y-4">
           <div>
-            <p className="text-gray-500 text-xs uppercase tracking-widest mb-3 pl-2">Solar Panels</p>
+            <p className="text-foreground-subtle text-xs uppercase tracking-widest mb-3 pl-2">{brands.panelsLabel}</p>
             <div className="relative">
-              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#07101f] to-transparent z-10" />
-              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#07101f] to-transparent z-10" />
-              <BrandScroller brands={panelBrands} direction="left" />
+              <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-r from-canvas to-transparent z-10" />
+              <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-l from-canvas to-transparent z-10" />
+              <BrandScroller brandList={brands.panelBrands} direction="left" />
             </div>
           </div>
 
           <div>
-            <p className="text-gray-500 text-xs uppercase tracking-widest mb-3 pl-2">Inverters</p>
+            <p className="text-foreground-subtle text-xs uppercase tracking-widest mb-3 pl-2">{brands.invertersLabel}</p>
             <div className="relative">
-              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#07101f] to-transparent z-10" />
-              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#07101f] to-transparent z-10" />
-              <BrandScroller brands={inverterBrands} direction="right" />
+              <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-r from-canvas to-transparent z-10" />
+              <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-l from-canvas to-transparent z-10" />
+              <BrandScroller brandList={brands.inverterBrands} direction="right" />
             </div>
           </div>
 
           <div>
-            <p className="text-gray-500 text-xs uppercase tracking-widest mb-3 pl-2">Batteries</p>
+            <p className="text-foreground-subtle text-xs uppercase tracking-widest mb-3 pl-2">{brands.batteriesLabel}</p>
             <div className="relative">
-              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#07101f] to-transparent z-10" />
-              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#07101f] to-transparent z-10" />
-              <BrandScroller brands={batteryBrands} direction="left" />
+              <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-r from-canvas to-transparent z-10" />
+              <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-16 bg-gradient-to-l from-canvas to-transparent z-10" />
+              <BrandScroller brandList={brands.batteryBrands} direction="left" />
             </div>
           </div>
         </div>
 
         {/* Certifications */}
-        <div className="mt-12 flex flex-wrap justify-center gap-4">
-          {['BIS Certified', 'IEC 61215', 'IEC 61730', 'MNRE Approved', 'PM Surya Ghar', 'CEA 2010 Compliant'].map((cert) => (
-            <div key={cert} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-4 py-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full" />
-              <span className="text-gray-300 text-sm">{cert}</span>
+        <div className="mt-8 sm:mt-12 flex flex-wrap justify-center gap-3 sm:gap-4">
+          {brands.certifications.map((cert) => (
+            <div key={cert} className="flex items-center gap-2 bg-surface border border-border rounded-lg px-4 py-2 shadow-[var(--shadow-bento)]">
+              <div className="w-2 h-2 bg-accent-2 rounded-full" />
+              <span className="text-foreground-muted text-sm">{cert}</span>
             </div>
           ))}
         </div>
