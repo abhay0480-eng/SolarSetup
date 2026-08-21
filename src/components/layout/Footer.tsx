@@ -18,17 +18,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 bg-gradient-to-br from-solar-500 to-solar-600 rounded-xl flex items-center justify-center shrink-0">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                </svg>
-              </div>
-              <div>
-                <span className="text-foreground font-bold text-lg leading-none">{company.name.toUpperCase()}</span>
-                <span className="block text-accent text-[10px] font-medium leading-none mt-0.5 tracking-wider">{company.tagline.toUpperCase()}</span>
-              </div>
+            <div className="mb-4">
+              <img src="/logo.png" alt="Greentech Energy Solution Logo" className="h-12 w-auto object-contain" />
             </div>
             <p className="text-foreground-muted text-sm leading-relaxed mb-3">
               {company.footerDescription}

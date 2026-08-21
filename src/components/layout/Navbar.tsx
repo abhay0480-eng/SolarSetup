@@ -37,43 +37,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[72px] lg:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group shrink-0">
-            {/* Logo icon — sun + leaf combo */}
-            <div className="relative w-12 h-12 lg:w-14 lg:h-14">
-              {/* Leaf background */}
-              <svg viewBox="0 0 56 56" className="w-full h-full" fill="none">
-                <path
-                  d="M28 6C28 6 8 20 8 36c0 8.837 8.954 16 20 16s20-7.163 20-16C48 20 28 6 28 6z"
-                  fill="#1a6339"
-                />
-                {/* Sun circle */}
-                <circle cx="28" cy="24" r="8" fill="#f59417" />
-                {/* Sun rays */}
-                <g stroke="#f59417" strokeWidth="2" strokeLinecap="round">
-                  <line x1="28" y1="12" x2="28" y2="14" />
-                  <line x1="28" y1="34" x2="28" y2="36" />
-                  <line x1="18" y1="24" x2="20" y2="24" />
-                  <line x1="36" y1="24" x2="38" y2="24" />
-                  <line x1="20.9" y1="16.9" x2="22.3" y2="18.3" />
-                  <line x1="33.7" y1="29.7" x2="35.1" y2="31.1" />
-                  <line x1="20.9" y1="31.1" x2="22.3" y2="29.7" />
-                  <line x1="33.7" y1="18.3" x2="35.1" y2="16.9" />
-                </g>
-                {/* Solar panel grid on leaf */}
-                <rect x="18" y="36" width="8" height="6" rx="1" fill="rgba(255,255,255,0.3)" />
-                <rect x="28" y="36" width="8" height="6" rx="1" fill="rgba(255,255,255,0.25)" />
-                <line x1="22" y1="36" x2="22" y2="42" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5"/>
-                <line x1="32" y1="36" x2="32" y2="42" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5"/>
-              </svg>
-            </div>
-            <div className="min-w-0">
-              <span className="block font-extrabold text-lg lg:text-xl leading-tight tracking-tight text-[#0d2137]">
-                {company.legalName?.split(' ').slice(0, 1).join(' ').toUpperCase() || 'GREENTECH'}
-              </span>
-              <span className="block text-[#1a6339] text-[11px] lg:text-xs font-bold leading-tight tracking-[0.08em] uppercase">
-                ENERGY SOLUTION
-              </span>
-            </div>
+          <Link to="/" className="flex items-center group shrink-0 py-2">
+            <img src="/logo.png" alt="Greentech Energy Solution Logo" className="h-12 lg:h-14 w-auto object-contain" />
           </Link>
 
           {/* Desktop Nav Links */}
