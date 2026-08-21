@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import companyEn from '../../content/en/company.json';
-import companyHi from '../../content/hi/company.json';
 import navEn from '../../content/en/nav.json';
 import navHi from '../../content/hi/nav.json';
 import { useContent } from '../../i18n/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 
 export default function Navbar() {
-  const company = useContent(companyEn, companyHi);
   const nav = useContent(navEn, navHi);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
